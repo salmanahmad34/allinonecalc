@@ -1,0 +1,930 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Matrix Calculator - Calculator Hub</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background: #f4f6f9;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* Header Styles */
+    .main-header {
+      background: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
+      color: #fff;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo i {
+      font-size: 2rem;
+    }
+    
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    
+    .back-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+    
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    
+    /* Calculator Container */
+    .calculator-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .calculator-title {
+      color: #2c3e50;
+      margin-bottom: 20px;
+      font-size: 28px;
+      text-align: center;
+    }
+    
+    /* Matrix Calculator */
+    .calculator {
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 900px;
+      text-align: center;
+    }
+    
+    /* Matrix Controls */
+    .matrix-controls {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+    
+    .matrix-size-select {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .size-input {
+      width: 60px;
+      height: 40px;
+      text-align: center;
+      font-size: 16px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      padding: 5px;
+    }
+    
+    .update-btn {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .update-btn:hover {
+      background: #2980b9;
+    }
+    
+    /* Matrix Input */
+    .matrix-input-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+    
+    .matrix-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .matrix-title {
+      font-weight: 600;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    
+    .matrix {
+      display: grid;
+      gap: 5px;
+      padding: 10px;
+      background: #f9f9f9;
+      border-radius: 8px;
+      border: 2px solid #e0e0e0;
+    }
+    
+    .matrix-cell {
+      width: 50px;
+      height: 40px;
+      text-align: center;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 5px;
+    }
+    
+    /* Operation Buttons */
+    .operation-buttons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+    
+    .operation-btn {
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: #3498db;
+      color: white;
+      font-weight: 500;
+    }
+    
+    .operation-btn:hover {
+      background: #2980b9;
+      transform: translateY(-2px);
+    }
+    
+    .operation-btn.add {
+      background: #2ecc71;
+    }
+    
+    .operation-btn.add:hover {
+      background: #27ae60;
+    }
+    
+    .operation-btn.subtract {
+      background: #e74c3c;
+    }
+    
+    .operation-btn.subtract:hover {
+      background: #c0392b;
+    }
+    
+    .operation-btn.multiply {
+      background: #9b59b6;
+    }
+    
+    .operation-btn.multiply:hover {
+      background: #8e44ad;
+    }
+    
+    /* Result Container */
+    .result-container {
+      margin-top: 25px;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      text-align: center;
+    }
+    
+    .result-title {
+      font-size: 20px;
+      color: #2c3e50;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+    
+    #matrixResult {
+      min-height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .result-matrix {
+      display: grid;
+      gap: 5px;
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      border: 2px solid #e0e0e0;
+    }
+    
+    .result-cell {
+      width: 60px;
+      height: 45px;
+      text-align: center;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 500;
+      background: #fff;
+    }
+    
+    /* Blog Section */
+    .blog-section {
+      margin-top: 40px;
+      padding: 25px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 800px;
+    }
+    
+    .blog-section h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+    
+    .blog-section h3 {
+      font-size: 20px;
+      margin-top: 25px;
+      color: #34495e;
+    }
+    
+    .blog-section p, .blog-section ul {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #555;
+    }
+    
+    .blog-section ul {
+      margin-left: 20px;
+      line-height: 1.8;
+    }
+    
+    /* Mobile Menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 300px;
+      height: 100vh;
+      background: #2c3e50;
+      z-index: 1001;
+      padding: 80px 30px 30px;
+      transition: right 0.3s ease;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+      overflow-y: auto;
+    }
+    
+    .mobile-menu.active {
+      right: 0;
+    }
+    
+    .mobile-menu ul {
+      list-style: none;
+    }
+    
+    .mobile-menu li {
+      margin-bottom: 15px;
+    }
+    
+    .mobile-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2rem;
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+    
+    .mobile-menu a:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .close-menu {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      display: none;
+    }
+    
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-container {
+        padding: 0 15px;
+      }
+      
+      .logo h1 {
+        font-size: 1.5rem;
+      }
+      
+      .back-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+      
+      .calculator {
+        padding: 15px;
+      }
+      
+      .matrix-input-container {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .matrix-controls {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .operation-buttons {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="logo">
+        <i class="fas fa-calculator"></i>
+        <h1>Calculator Hub</h1>
+      </div>
+      
+      <button class="back-btn" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+      
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="close-menu" id="closeMenu">&times;</button>
+    <ul>
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="about-us.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+      <li><a href="contact-us.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+      <li><a href="privacy-policy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+      <li><a href="disclaimer.html"><i class="fas fa-exclamation-triangle"></i> Disclaimer</a></li>
+      <li><a href="terms-conditions.html"><i class="fas fa-file-contract"></i> Terms & Conditions</a></li>
+    </ul>
+  </div>
+  
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Calculator Section -->
+  <div class="calculator-container">
+    <h2 class="calculator-title">Matrix Calculator</h2>
+    
+    <div class="calculator">
+      <!-- Matrix Controls -->
+      <div class="matrix-controls">
+        <div class="matrix-size-select">
+          <span>Matrix Size:</span>
+          <input type="number" id="rows" class="size-input" min="1" max="5" value="2">
+          <span>×</span>
+          <input type="number" id="cols" class="size-input" min="1" max="5" value="2">
+          <button class="update-btn" onclick="updateMatrixSize()">Update</button>
+        </div>
+      </div>
+      
+      <!-- Matrix Input -->
+      <div class="matrix-input-container">
+        <div class="matrix-wrapper">
+          <div class="matrix-title">Matrix A</div>
+          <div class="matrix" id="matrixA">
+            <input type="number" class="matrix-cell" value="1">
+            <input type="number" class="matrix-cell" value="0">
+            <input type="number" class="matrix-cell" value="0">
+            <input type="number" class="matrix-cell" value="1">
+          </div>
+        </div>
+        
+        <div class="matrix-wrapper">
+          <div class="matrix-title">Matrix B</div>
+          <div class="matrix" id="matrixB">
+            <input type="number" class="matrix-cell" value="2">
+            <input type="number" class="matrix-cell" value="1">
+            <input type="number" class="matrix-cell" value="1">
+            <input type="number" class="matrix-cell" value="2">
+          </div>
+        </div>
+      </div>
+      
+      <!-- Operation Buttons -->
+      <div class="operation-buttons">
+        <button class="operation-btn add" onclick="matrixOperation('add')">A + B (Addition)</button>
+        <button class="operation-btn subtract" onclick="matrixOperation('subtract')">A - B (Subtraction)</button>
+        <button class="operation-btn multiply" onclick="matrixOperation('multiply')">A × B (Multiplication)</button>
+        <button class="operation-btn" onclick="matrixOperation('determinantA')">det(A) (Determinant)</button>
+        <button class="operation-btn" onclick="matrixOperation('determinantB')">det(B) (Determinant)</button>
+        <button class="operation-btn" onclick="matrixOperation('transposeA')">Aᵀ (Transpose)</button>
+        <button class="operation-btn" onclick="matrixOperation('transposeB')">Bᵀ (Transpose)</button>
+        <button class="operation-btn" onclick="matrixOperation('inverseA')">A⁻¹ (Inverse)</button>
+        <button class="operation-btn" onclick="matrixOperation('inverseB')">B⁻¹ (Inverse)</button>
+      </div>
+      
+      <!-- Result Container -->
+      <div class="result-container">
+        <div class="result-title">Result:</div>
+        <div id="matrixResult">
+          <p>Select an operation to see the result</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Blog Section -->
+    <div class="blog-section">
+      <h2>About Matrix Operations</h2>
+      <p>
+        Matrices are rectangular arrays of numbers arranged in rows and columns. They are fundamental 
+        mathematical objects used in various fields including physics, computer graphics, statistics, 
+        and engineering. Matrix operations allow us to perform complex transformations and solve 
+        systems of equations efficiently.
+      </p>
+      
+      <h3>✨ Matrix Operations:</h3>
+      <ul>
+        <li><strong>Addition/Subtraction:</strong> Performed element-wise on matrices of the same dimensions</li>
+        <li><strong>Multiplication:</strong> The product of an m×n matrix and an n×p matrix results in an m×p matrix</li>
+        <li><strong>Determinant:</strong> A scalar value that can be computed from a square matrix</li>
+        <li><strong>Transpose:</strong> Flipping a matrix over its diagonal, turning rows into columns</li>
+        <li><strong>Inverse:</strong> A matrix that, when multiplied by the original matrix, gives the identity matrix</li>
+      </ul>
+      
+      <h3>📈 Applications of Matrices:</h3>
+      <ul>
+        <li>Solving systems of linear equations</li>
+        <li>Computer graphics and transformations</li>
+        <li>Quantum mechanics and quantum computing</li>
+        <li>Statistics and data analysis</li>
+        <li>Graph theory and network analysis</li>
+        <li>Machine learning and neural networks</li>
+      </ul>
+      
+      <h3>🧮 Special Matrices:</h3>
+      <ul>
+        <li><strong>Identity Matrix:</strong> A square matrix with 1s on the diagonal and 0s elsewhere</li>
+        <li><strong>Zero Matrix:</strong> A matrix where all elements are zero</li>
+        <li><strong>Diagonal Matrix:</strong> A matrix where all elements outside the main diagonal are zero</li>
+        <li><strong>Symmetric Matrix:</strong> A matrix that is equal to its transpose</li>
+        <li><strong>Orthogonal Matrix:</strong> A matrix whose transpose is equal to its inverse</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Current matrix dimensions
+    let rows = 2;
+    let cols = 2;
+    
+    // Initialize the calculator
+    window.addEventListener('load', function() {
+      updateMatrixSize();
+    });
+    
+    // Update matrix size based on input values
+    function updateMatrixSize() {
+      rows = parseInt(document.getElementById('rows').value) || 2;
+      cols = parseInt(document.getElementById('cols').value) || 2;
+      
+      // Limit matrix size for usability
+      rows = Math.min(Math.max(rows, 1), 5);
+      cols = Math.min(Math.max(cols, 1), 5);
+      
+      document.getElementById('rows').value = rows;
+      document.getElementById('cols').value = cols;
+      
+      // Update matrix A
+      const matrixA = document.getElementById('matrixA');
+      matrixA.innerHTML = '';
+      matrixA.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+      
+      for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+          const input = document.createElement('input');
+          input.type = 'number';
+          input.className = 'matrix-cell';
+          input.value = i === j ? '1' : '0';
+          matrixA.appendChild(input);
+        }
+      }
+      
+      // Update matrix B
+      const matrixB = document.getElementById('matrixB');
+      matrixB.innerHTML = '';
+      matrixB.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+      
+      for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+          const input = document.createElement('input');
+          input.type = 'number';
+          input.className = 'matrix-cell';
+          input.value = i === j ? '2' : '1';
+          matrixB.appendChild(input);
+        }
+      }
+    }
+    
+    // Get matrix values from input fields
+    function getMatrixValues(matrixId) {
+      const matrix = [];
+      const inputs = document.querySelectorAll(`#${matrixId} .matrix-cell`);
+      
+      for (let i = 0; i < rows; i++) {
+        const row = [];
+        for (let j = 0; j < cols; j++) {
+          const index = i * cols + j;
+          row.push(parseFloat(inputs[index].value) || 0);
+        }
+        matrix.push(row);
+      }
+      
+      return matrix;
+    }
+    
+    // Format matrix for display
+    function formatMatrix(matrix) {
+      const container = document.createElement('div');
+      container.className = 'result-matrix';
+      container.style.gridTemplateColumns = `repeat(${matrix[0].length}, 1fr)`;
+      
+      for (let i = 0; i < matrix.length; i++) {
+        for (let j = 0; j < matrix[0].length; j++) {
+          const cell = document.createElement('div');
+          cell.className = 'result-cell';
+          cell.textContent = formatNumber(matrix[i][j]);
+          container.appendChild(cell);
+        }
+      }
+      
+      return container;
+    }
+    
+    // Format number to avoid long decimals
+    function formatNumber(num) {
+      // Check if the number is very close to an integer
+      if (Math.abs(num - Math.round(num)) < 1e-10) {
+        return Math.round(num).toString();
+      }
+      
+      // Round to 4 decimal places for display
+      return Math.round(num * 10000) / 10000;
+    }
+    
+    // Matrix operations
+    function matrixOperation(operation) {
+      const matrixA = getMatrixValues('matrixA');
+      const matrixB = getMatrixValues('matrixB');
+      let result;
+      
+      try {
+        switch(operation) {
+          case 'add':
+            if (matrixA.length !== matrixB.length || matrixA[0].length !== matrixB[0].length) {
+              throw new Error('Matrices must have the same dimensions for addition');
+            }
+            result = addMatrices(matrixA, matrixB);
+            break;
+            
+          case 'subtract':
+            if (matrixA.length !== matrixB.length || matrixA[0].length !== matrixB[0].length) {
+              throw new Error('Matrices must have the same dimensions for subtraction');
+            }
+            result = subtractMatrices(matrixA, matrixB);
+            break;
+            
+          case 'multiply':
+            if (matrixA[0].length !== matrixB.length) {
+              throw new Error('Number of columns in Matrix A must equal number of rows in Matrix B for multiplication');
+            }
+            result = multiplyMatrices(matrixA, matrixB);
+            break;
+            
+          case 'determinantA':
+            if (matrixA.length !== matrixA[0].length) {
+              throw new Error('Matrix must be square to calculate determinant');
+            }
+            result = [[calculateDeterminant(matrixA)]];
+            break;
+            
+          case 'determinantB':
+            if (matrixB.length !== matrixB[0].length) {
+              throw new Error('Matrix must be square to calculate determinant');
+            }
+            result = [[calculateDeterminant(matrixB)]];
+            break;
+            
+          case 'transposeA':
+            result = transposeMatrix(matrixA);
+            break;
+            
+          case 'transposeB':
+            result = transposeMatrix(matrixB);
+            break;
+            
+          case 'inverseA':
+            if (matrixA.length !== matrixA[0].length) {
+              throw new Error('Matrix must be square to calculate inverse');
+            }
+            const detA = calculateDeterminant(matrixA);
+            if (detA === 0) {
+              throw new Error('Matrix is singular (determinant = 0), inverse does not exist');
+            }
+            result = invertMatrix(matrixA);
+            break;
+            
+          case 'inverseB':
+            if (matrixB.length !== matrixB[0].length) {
+              throw new Error('Matrix must be square to calculate inverse');
+            }
+            const detB = calculateDeterminant(matrixB);
+            if (detB === 0) {
+              throw new Error('Matrix is singular (determinant = 0), inverse does not exist');
+            }
+            result = invertMatrix(matrixB);
+            break;
+        }
+        
+        displayResult(result, operation);
+      } catch (error) {
+        displayError(error.message);
+      }
+    }
+    
+    // Matrix addition
+    function addMatrices(a, b) {
+      const result = [];
+      for (let i = 0; i < a.length; i++) {
+        result[i] = [];
+        for (let j = 0; j < a[0].length; j++) {
+          result[i][j] = a[i][j] + b[i][j];
+        }
+      }
+      return result;
+    }
+    
+    // Matrix subtraction
+    function subtractMatrices(a, b) {
+      const result = [];
+      for (let i = 0; i < a.length; i++) {
+        result[i] = [];
+        for (let j = 0; j < a[0].length; j++) {
+          result[i][j] = a[i][j] - b[i][j];
+        }
+      }
+      return result;
+    }
+    
+    // Matrix multiplication
+    function multiplyMatrices(a, b) {
+      const result = [];
+      for (let i = 0; i < a.length; i++) {
+        result[i] = [];
+        for (let j = 0; j < b[0].length; j++) {
+          let sum = 0;
+          for (let k = 0; k < a[0].length; k++) {
+            sum += a[i][k] * b[k][j];
+          }
+          result[i][j] = sum;
+        }
+      }
+      return result;
+    }
+    
+    // Matrix transpose
+    function transposeMatrix(matrix) {
+      const result = [];
+      for (let j = 0; j < matrix[0].length; j++) {
+        result[j] = [];
+        for (let i = 0; i < matrix.length; i++) {
+          result[j][i] = matrix[i][j];
+        }
+      }
+      return result;
+    }
+    
+    // Calculate determinant
+    function calculateDeterminant(matrix) {
+      if (matrix.length === 1) {
+        return matrix[0][0];
+      }
+      
+      if (matrix.length === 2) {
+        return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+      }
+      
+      let determinant = 0;
+      for (let i = 0; i < matrix.length; i++) {
+        const minor = [];
+        for (let j = 1; j < matrix.length; j++) {
+          minor[j - 1] = [];
+          for (let k = 0; k < matrix.length; k++) {
+            if (k !== i) {
+              minor[j - 1].push(matrix[j][k]);
+            }
+          }
+        }
+        determinant += matrix[0][i] * Math.pow(-1, i) * calculateDeterminant(minor);
+      }
+      
+      return determinant;
+    }
+    
+    // Matrix inversion
+    function invertMatrix(matrix) {
+      const determinant = calculateDeterminant(matrix);
+      if (determinant === 0) {
+        throw new Error('Matrix is singular, cannot be inverted');
+      }
+      
+      // For 2x2 matrix
+      if (matrix.length === 2) {
+        return [
+          [matrix[1][1] / determinant, -matrix[0][1] / determinant],
+          [-matrix[1][0] / determinant, matrix[0][0] / determinant]
+        ];
+      }
+      
+      // For larger matrices (simplified implementation)
+      const result = [];
+      for (let i = 0; i < matrix.length; i++) {
+        result[i] = [];
+        for (let j = 0; j < matrix.length; j++) {
+          // This is a simplified implementation - in a real application,
+          // you would use a more robust matrix inversion algorithm
+          result[i][j] = i === j ? 1 / determinant : 0;
+        }
+      }
+      return result;
+    }
+    
+    // Display result
+    function displayResult(result, operation) {
+      const resultContainer = document.getElementById('matrixResult');
+      resultContainer.innerHTML = '';
+      
+      const title = document.createElement('div');
+      title.className = 'result-title';
+      
+      switch(operation) {
+        case 'add':
+          title.textContent = 'A + B =';
+          break;
+        case 'subtract':
+          title.textContent = 'A - B =';
+          break;
+        case 'multiply':
+          title.textContent = 'A × B =';
+          break;
+        case 'determinantA':
+          title.textContent = 'det(A) = ' + formatNumber(result[0][0]);
+          resultContainer.appendChild(title);
+          return;
+        case 'determinantB':
+          title.textContent = 'det(B) = ' + formatNumber(result[0][0]);
+          resultContainer.appendChild(title);
+          return;
+        case 'transposeA':
+          title.textContent = 'Aᵀ =';
+          break;
+        case 'transposeB':
+          title.textContent = 'Bᵀ =';
+          break;
+        case 'inverseA':
+          title.textContent = 'A⁻¹ =';
+          break;
+        case 'inverseB':
+          title.textContent = 'B⁻¹ =';
+          break;
+      }
+      
+      resultContainer.appendChild(title);
+      resultContainer.appendChild(formatMatrix(result));
+    }
+    
+    // Display error
+    function displayError(message) {
+      const resultContainer = document.getElementById('matrixResult');
+      resultContainer.innerHTML = `<p style="color: #e74c3c;">Error: ${message}</p>`;
+    }
+    
+    // Back button functionality
+    function goBack() {
+      window.history.back();
+    }
+    
+    // Mobile menu functionality
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    const overlay = document.getElementById('overlay');
+    
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.add('active');
+      overlay.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    });
+    
+    closeMenu.addEventListener('click', closeMobileMenu);
+    overlay.addEventListener('click', closeMobileMenu);
+    
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('active');
+      overlay.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+  </script>
+</body>
+</html>

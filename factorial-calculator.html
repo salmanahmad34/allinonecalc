@@ -1,0 +1,544 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Factorial Calculator - Calculator Hub</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background: #f4f6f9;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* Header Styles */
+    .main-header {
+      background: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
+      color: #fff;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo i {
+      font-size: 2rem;
+    }
+    
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    
+    .back-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+    
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    
+    /* Calculator Container */
+    .calculator-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .calculator-title {
+      color: #2c3e50;
+      margin-bottom: 20px;
+      font-size: 28px;
+      text-align: center;
+    }
+    
+    /* Factorial Calculator */
+    .calculator {
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+    
+    .input-container {
+      margin-bottom: 20px;
+    }
+    
+    .input-container label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #2c3e50;
+      text-align: left;
+    }
+    
+    .input-field {
+      width: 100%;
+      height: 50px;
+      background: #f9f9f9;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      padding: 10px 15px;
+      font-size: 18px;
+      text-align: center;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+      color: #2c3e50;
+      transition: border-color 0.3s;
+    }
+    
+    .input-field:focus {
+      outline: none;
+      border-color: #3498db;
+    }
+    
+    .calculate-btn {
+      background: #2ecc71;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s;
+      width: 100%;
+      font-weight: 600;
+    }
+    
+    .calculate-btn:hover {
+      background: #27ae60;
+      transform: translateY(-2px);
+    }
+    
+    .result-container {
+      margin-top: 25px;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      text-align: center;
+    }
+    
+    .result-title {
+      font-size: 18px;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+    
+    .result {
+      font-size: 24px;
+      font-weight: 700;
+      color: #2ecc71;
+      word-break: break-all;
+    }
+    
+    .formula {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #7f8c8d;
+      font-style: italic;
+    }
+    
+    /* Explanation Section */
+    .explanation {
+      margin-top: 30px;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      text-align: left;
+    }
+    
+    .explanation h3 {
+      color: #2c3e50;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+    
+    .explanation p {
+      margin-bottom: 15px;
+      color: #555;
+    }
+    
+    .explanation ul {
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+    
+    .explanation li {
+      margin-bottom: 8px;
+      color: #555;
+    }
+    
+    /* Blog Section */
+    .blog-section {
+      margin-top: 40px;
+      padding: 25px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 800px;
+    }
+    
+    .blog-section h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+    
+    .blog-section h3 {
+      font-size: 20px;
+      margin-top: 25px;
+      color: #34495e;
+    }
+    
+    .blog-section p, .blog-section ul {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #555;
+    }
+    
+    .blog-section ul {
+      margin-left: 20px;
+      line-height: 1.8;
+    }
+    
+    /* Mobile Menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 300px;
+      height: 100vh;
+      background: #2c3e50;
+      z-index: 1001;
+      padding: 80px 30px 30px;
+      transition: right 0.3s ease;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+      overflow-y: auto;
+    }
+    
+    .mobile-menu.active {
+      right: 0;
+    }
+    
+    .mobile-menu ul {
+      list-style: none;
+    }
+    
+    .mobile-menu li {
+      margin-bottom: 15px;
+    }
+    
+    .mobile-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2rem;
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+    
+    .mobile-menu a:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .close-menu {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      display: none;
+    }
+    
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-container {
+        padding: 0 15px;
+      }
+      
+      .logo h1 {
+        font-size: 1.5rem;
+      }
+      
+      .back-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+      
+      .calculator {
+        padding: 15px;
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="logo">
+        <i class="fas fa-calculator"></i>
+        <h1>Calculator Hub</h1>
+      </div>
+      
+      <button class="back-btn" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+      
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="close-menu" id="closeMenu">&times;</button>
+    <ul>
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="about-us.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+      <li><a href="contact-us.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+      <li><a href="privacy-policy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+      <li><a href="disclaimer.html"><i class="fas fa-exclamation-triangle"></i> Disclaimer</a></li>
+      <li><a href="terms-conditions.html"><i class="fas fa-file-contract"></i> Terms & Conditions</a></li>
+    </ul>
+  </div>
+  
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Calculator Section -->
+  <div class="calculator-container">
+    <h2 class="calculator-title">Factorial Calculator</h2>
+    
+    <div class="calculator">
+      <div class="input-container">
+        <label for="numberInput">Enter a non-negative integer:</label>
+        <input type="number" id="numberInput" class="input-field" placeholder="e.g., 5" min="0" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+      </div>
+      
+      <button class="calculate-btn" onclick="calculateFactorial()">
+        Calculate Factorial
+      </button>
+      
+      <div class="result-container">
+        <div class="result-title">Result:</div>
+        <div class="result" id="result">-</div>
+        <div class="formula" id="formula"></div>
+      </div>
+      
+      <div class="explanation">
+        <h3>What is a Factorial?</h3>
+        <p>The factorial of a non-negative integer n, denoted by n!, is the product of all positive integers less than or equal to n.</p>
+        
+        <p><strong>Formula:</strong> n! = n × (n-1) × (n-2) × ... × 3 × 2 × 1</p>
+        
+        <p><strong>Example:</strong> 5! = 5 × 4 × 3 × 2 × 1 = 120</p>
+        
+        <p><strong>Special case:</strong> 0! is defined as 1</p>
+      </div>
+    </div>
+
+    <!-- Blog Section -->
+    <div class="blog-section">
+      <h2>About Factorials</h2>
+      <p>
+        Factorials are mathematical operations that have applications in various fields including 
+        combinatorics, algebra, and mathematical analysis. They are particularly useful in 
+        calculating permutations and combinations.
+      </p>
+      
+      <h3>✨ Applications of Factorials:</h3>
+      <ul>
+        <li><strong>Combinatorics:</strong> Calculating the number of ways to arrange objects</li>
+        <li><strong>Probability:</strong> Determining possible outcomes in probability theory</li>
+        <li><strong>Series expansions:</strong> Used in Taylor series and other mathematical expansions</li>
+        <li><strong>Algebra:</strong> Appearing in binomial theorem and polynomial equations</li>
+      </ul>
+      
+      <h3>📈 Properties of Factorials:</h3>
+      <ul>
+        <li>n! = n × (n-1)! for all positive integers n</li>
+        <li>0! = 1 (by definition)</li>
+        <li>Factorials grow very rapidly with increasing n</li>
+        <li>Factorials are only defined for non-negative integers</li>
+      </ul>
+      
+      <h3>🧮 Did You Know?</h3>
+      <p>
+        The factorial function grows faster than exponential functions. For example, 10! is 3,628,800, 
+        15! is 1,307,674,368,000, and 20! is 2,432,902,008,176,640,000. Most calculators cannot 
+        accurately compute factorials beyond 170! due to numerical overflow limitations.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Calculate factorial
+    function calculateFactorial() {
+      const input = document.getElementById('numberInput').value;
+      const number = parseInt(input);
+      
+      // Validate input
+      if (isNaN(number) || number < 0) {
+        document.getElementById('result').textContent = 'Please enter a valid non-negative integer';
+        document.getElementById('result').style.color = '#e74c3c';
+        document.getElementById('formula').textContent = '';
+        return;
+      }
+      
+      if (number > 170) {
+        document.getElementById('result').textContent = 'Number too large (max: 170)';
+        document.getElementById('result').style.color = '#e74c3c';
+        document.getElementById('formula').textContent = '';
+        return;
+      }
+      
+      // Calculate factorial
+      let result = 1;
+      let formula = '';
+      
+      if (number === 0) {
+        formula = '0! = 1';
+      } else {
+        formula = number + '! = ';
+        for (let i = number; i >= 1; i--) {
+          result *= i;
+          formula += i;
+          if (i > 1) formula += ' × ';
+        }
+      }
+      
+      // Display result
+      document.getElementById('result').textContent = result.toLocaleString();
+      document.getElementById('result').style.color = '#2ecc71';
+      document.getElementById('formula').textContent = formula + ' = ' + result.toLocaleString();
+    }
+    
+    // Allow only numbers to be entered
+    document.getElementById('numberInput').addEventListener('keydown', function(e) {
+      // Allow: backspace, delete, tab, escape, enter
+      if ([46, 8, 9, 27, 13, 110].includes(e.keyCode) || 
+          // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
+          (e.keyCode === 65 && e.ctrlKey === true) || 
+          (e.keyCode === 67 && e.ctrlKey === true) || 
+          (e.keyCode === 86 && e.ctrlKey === true) || 
+          (e.keyCode === 88 && e.ctrlKey === true) ||
+          // Allow: numbers on keypad
+          (e.keyCode >= 96 && e.keyCode <= 105)) {
+        return;
+      }
+      // Prevent if not a number
+      if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+        e.preventDefault();
+      }
+    });
+    
+    // Calculate when Enter key is pressed
+    document.getElementById('numberInput').addEventListener('keyup', function(e) {
+      if (e.keyCode === 13) {
+        calculateFactorial();
+      }
+    });
+    
+    // Back button functionality
+    function goBack() {
+      window.history.back();
+    }
+    
+    // Mobile menu functionality
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    const overlay = document.getElementById('overlay');
+    
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.add('active');
+      overlay.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    });
+    
+    closeMenu.addEventListener('click', closeMobileMenu);
+    overlay.addEventListener('click', closeMobileMenu);
+    
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('active');
+      overlay.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+  </script>
+</body>
+</html>

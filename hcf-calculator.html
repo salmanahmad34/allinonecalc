@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional Basic Calculator</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background: #f4f6f9;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* Header Styles */
+    .main-header {
+      background: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
+      color: #fff;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo i {
+      font-size: 2rem;
+    }
+    
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    
+    .back-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+    
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    
+    /* Calculator Styles */
+    .calculator-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .calculator {
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      width: 320px;
+      text-align: center;
+    }
+    
+    .calculator-title {
+      color: #2c3e50;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+    
+    .display {
+      width: 100%;
+      height: 60px;
+      background: #f9f9f9;
+      border: none;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      padding: 10px;
+      font-size: 22px;
+      text-align: right;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+      color: #2c3e50;
+    }
+    
+    .display::placeholder {
+      color: #aaa;
+    }
+    
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    
+    button {
+      padding: 18px;
+      font-size: 18px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: #f1f1f1;
+      color: #333;
+    }
+    
+    button:hover {
+      background: #dfe6e9;
+    }
+    
+    .equal {
+      grid-column: span 2;
+      background: #2ecc71;
+      color: white;
+    }
+    
+    .equal:hover {
+      background: #27ae60;
+    }
+    
+    .clear {
+      background: #e74c3c;
+      color: white;
+    }
+    
+    .clear:hover {
+      background: #c0392b;
+    }
+    
+    .operator {
+      background: #3498db;
+      color: white;
+    }
+    
+    .operator:hover {
+      background: #2980b9;
+    }
+    
+    /* Blog Section */
+    .blog-section {
+      margin-top: 40px;
+      padding: 25px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 800px;
+    }
+    
+    .blog-section h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+    
+    .blog-section h3 {
+      font-size: 20px;
+      margin-top: 25px;
+      color: #34495e;
+    }
+    
+    .blog-section p, .blog-section ul {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #555;
+    }
+    
+    .blog-section ul {
+      margin-left: 20px;
+      line-height: 1.8;
+    }
+    
+    /* Mobile Menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 300px;
+      height: 100vh;
+      background: #2c3e50;
+      z-index: 1001;
+      padding: 80px 30px 30px;
+      transition: right 0.3s ease;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+      overflow-y: auto;
+    }
+    
+    .mobile-menu.active {
+      right: 0;
+    }
+    
+    .mobile-menu ul {
+      list-style: none;
+    }
+    
+    .mobile-menu li {
+      margin-bottom: 15px;
+    }
+    
+    .mobile-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2rem;
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+    
+    .mobile-menu a:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .close-menu {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      display: none;
+    }
+    
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-container {
+        padding: 0 15px;
+      }
+      
+      .logo h1 {
+        font-size: 1.5rem;
+      }
+      
+      .back-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+      
+      .calculator {
+        width: 100%;
+        max-width: 320px;
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+      
+      .nav-menu {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="logo">
+        <i class="fas fa-calculator"></i>
+        <h1>Calculator Hub</h1>
+      </div>
+      
+      <button class="back-btn" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+      
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="close-menu" id="closeMenu">&times;</button>
+    <ul>
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="about-us.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+      <li><a href="contact-us.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+      <li><a href="privacy-policy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+      <li><a href="disclaimer.html"><i class="fas fa-exclamation-triangle"></i> Disclaimer</a></li>
+      <li><a href="terms-conditions.html"><i class="fas fa-file-contract"></i> Terms & Conditions</a></li>
+    </ul>
+  </div>
+  
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Calculator Section -->
+  <div class="calculator-container">
+    <h2 class="calculator-title">Basic Calculator</h2>
+    
+    <div class="calculator">
+      <input type="text" id="display" class="display" placeholder="0" disabled>
+      <div class="buttons">
+        <button onclick="clearDisplay()" class="clear">C</button>
+        <button onclick="appendValue('/')" class="operator">÷</button>
+        <button onclick="appendValue('*')" class="operator">×</button>
+        <button onclick="appendValue('-')" class="operator">−</button>
+
+        <button onclick="appendValue('7')">7</button>
+        <button onclick="appendValue('8')">8</button>
+        <button onclick="appendValue('9')">9</button>
+        <button onclick="appendValue('+')" class="operator">+</button>
+
+        <button onclick="appendValue('4')">4</button>
+        <button onclick="appendValue('5')">5</button>
+        <button onclick="appendValue('6')">6</button>
+        <button onclick="appendValue('.')">.</button>
+
+        <button onclick="appendValue('1')">1</button>
+        <button onclick="appendValue('2')">2</button>
+        <button onclick="appendValue('3')">3</button>
+        <button onclick="deleteLast()">⌫</button>
+
+        <button onclick="appendValue('0')">0</button>
+        <button onclick="calculate()" class="equal">=</button>
+      </div>
+    </div>
+
+    <!-- Blog Section -->
+    <div class="blog-section">
+      <h2>About This Calculator</h2>
+      <p>
+        This professional calculator is designed to provide a clean, simple, and stylish way to perform 
+        basic arithmetic operations like addition, subtraction, multiplication, and division. 
+        Whether you are a student, professional, or simply need a quick calculation tool, 
+        this calculator is built to make your tasks easier.
+      </p>
+      
+      <h3>✨ Features:</h3>
+      <ul>
+        <li>Modern and minimalist design</li>
+        <li>Fully responsive layout (works on mobile & desktop)</li>
+        <li>Fast and accurate calculations</li>
+        <li>Easy-to-use interface</li>
+        <li>Color-coded buttons for better usability</li>
+      </ul>
+      
+      <h3>📌 Why Use This Calculator?</h3>
+      <p>
+        In today's fast-paced world, having a reliable calculator on your website saves time and effort. 
+        Instead of switching apps or devices, you can calculate directly from this page. 
+        This tool is especially helpful for students, teachers, freelancers, and professionals who 
+        need quick solutions on the go.
+      </p>
+      
+      <p>
+        Keep visiting our website for more useful online tools and calculators that make your 
+        daily tasks smarter and simpler.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Calculator functionality
+    let display = document.getElementById('display');
+
+    function appendValue(value) {
+      if (display.value === '0' && value !== '.') {
+        display.value = value;
+      } else {
+        display.value += value;
+      }
+    }
+
+    function clearDisplay() {
+      display.value = '0';
+    }
+
+    function deleteLast() {
+      if (display.value.length > 1) {
+        display.value = display.value.slice(0, -1);
+      } else {
+        display.value = '0';
+      }
+    }
+
+    function calculate() {
+      try {
+        // Replace visual operators with JavaScript operators
+        let expression = display.value.replace(/×/g, '*').replace(/÷/g, '/').replace(/−/g, '-');
+        display.value = eval(expression);
+      } catch {
+        display.value = 'Error';
+        setTimeout(() => {
+          display.value = '0';
+        }, 1500);
+      }
+    }
+
+    // Back button functionality
+    function goBack() {
+      window.history.back();
+    }
+
+    // Mobile menu functionality
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    const overlay = document.getElementById('overlay');
+    
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.add('active');
+      overlay.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    });
+    
+    closeMenu.addEventListener('click', closeMobileMenu);
+    overlay.addEventListener('click', closeMobileMenu);
+    
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('active');
+      overlay.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    // Initialize calculator display
+    window.addEventListener('load', function() {
+      display.value = '0';
+    });
+  </script>
+</body>
+</html>

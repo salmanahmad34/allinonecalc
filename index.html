@@ -1,0 +1,1299 @@
+  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator Hub - 40+ Free Calculators for Indians</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2c3e50;
+      --secondary: #3498db;
+      --accent: #e74c3c;
+      --light: #ecf0f1;
+      --dark: #2c3e50;
+      --text: #333;
+      --card-shadow: 0 10px 20px rgba(0,0,0,0.12);
+      --hover-shadow: 0 15px 30px rgba(0,0,0,0.2);
+      --math-color: #3498db;
+      --finance-color: #2ecc71;
+      --health-color: #e74c3c;
+      --conversion-color: #f39c12;
+      --date-color: #9b59b6;
+      --utility-color: #1abc9c;
+      --education-color: #8e44ad;
+      --indian-color: #ff9933;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+    
+    /* Header Styles */
+    .main-header {
+      background: linear-gradient(135deg, var(--primary) 0%, #1a2530 100%);
+      color: #fff;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo i {
+      font-size: 2rem;
+    }
+    
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    
+    /* Navigation */
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 25px;
+    }
+    
+    .nav-menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s;
+      padding: 8px 12px;
+      border-radius: 5px;
+    }
+    
+    .nav-menu a:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(to right, #4b6cb7, #182848);
+      color: white;
+      padding: 60px 0;
+      text-align: center;
+      position: relative;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,70 Q50,100 100,70 L100,100 L0,100 Z" fill="rgba(255,255,255,0.05)"/></svg>');
+      background-size: 100% 100%;
+    }
+    
+    .hero-content {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 25px;
+      font-weight: 300;
+    }
+    
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+    
+    .stat-item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px 30px;
+      border-radius: 15px;
+      backdrop-filter: blur(5px);
+      min-width: 150px;
+    }
+    
+    .stat-item i {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      display: block;
+    }
+    
+    .stat-item div {
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+    
+    /* Category Headers */
+    .category-header {
+      text-align: center;
+      margin: 50px 0 30px;
+      padding: 20px;
+      border-radius: 15px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .category-header h2 {
+      font-size: 2.2rem;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .category-header p {
+      position: relative;
+      z-index: 2;
+      max-width: 600px;
+      margin: 10px auto 0;
+      opacity: 0.9;
+    }
+    
+    .category-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.3);
+      z-index: 1;
+    }
+    
+    .math-header {
+      background: linear-gradient(135deg, var(--math-color), #2980b9);
+    }
+    
+    .finance-header {
+      background: linear-gradient(135deg, var(--finance-color), #27ae60);
+    }
+    
+    .health-header {
+      background: linear-gradient(135deg, var(--health-color), #c0392b);
+    }
+    
+    .conversion-header {
+      background: linear-gradient(135deg, var(--conversion-color), #d35400);
+    }
+    
+    .date-header {
+      background: linear-gradient(135deg, var(--date-color), #8e44ad);
+    }
+    
+    .utility-header {
+      background: linear-gradient(135deg, var(--utility-color), #16a085);
+    }
+    
+    .education-header {
+      background: linear-gradient(135deg, var(--education-color), #6c3483);
+    }
+    
+    .indian-header {
+      background: linear-gradient(135deg, var(--indian-color), #ff5722);
+    }
+    
+    /* Search and Filter */
+    .search-filter {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 30px 15px;
+      background: var(--light);
+      flex-wrap: wrap;
+      position: sticky;
+      top: 80px;
+      z-index: 99;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .search-box {
+      position: relative;
+      flex: 1;
+      max-width: 450px;
+      min-width: 250px;
+    }
+    
+    .search-box input {
+      width: 100%;
+      padding: 16px 20px 16px 50px;
+      font-size: 16px;
+      border: 2px solid #ddd;
+      border-radius: 50px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.3s;
+    }
+    
+    .search-box input:focus {
+      border-color: var(--secondary);
+      outline: none;
+    }
+    
+    .search-box i {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #777;
+      font-size: 18px;
+    }
+    
+    .category-filter {
+      position: relative;
+      min-width: 220px;
+    }
+    
+    .category-filter select {
+      width: 100%;
+      padding: 16px 20px 16px 50px;
+      font-size: 16px;
+      border: 2px solid #ddd;
+      border-radius: 50px;
+      appearance: none;
+      box-shadow: var(--card-shadow);
+      background: white;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .category-filter select:focus {
+      border-color: var(--secondary);
+      outline: none;
+    }
+    
+    .category-filter i {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #777;
+      pointer-events: none;
+      font-size: 18px;
+    }
+    
+    /* Grid Layout - Circular Design */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 30px;
+      padding: 40px 20px;
+    }
+    
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 30px 20px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      aspect-ratio: 1/1;
+      min-height: 200px;
+    }
+    
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+      transform: rotate(45deg);
+      transition: all 0.5s;
+      z-index: 1;
+    }
+    
+    .card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: var(--hover-shadow);
+    }
+    
+    .card:hover::before {
+      animation: shine 1.5s infinite;
+    }
+    
+    @keyframes shine {
+      0% {
+        left: -50%;
+      }
+      100% {
+        left: 150%;
+      }
+    }
+    
+    .card-icon {
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      position: relative;
+      z-index: 2;
+      transition: all 0.3s;
+    }
+    
+    .card:hover .card-icon {
+      transform: scale(1.2);
+    }
+    
+    .card h3 {
+      margin: 0;
+      color: var(--dark);
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 2;
+      font-weight: 600;
+    }
+    
+    .card p {
+      color: #666;
+      font-size: 0.85rem;
+      margin-bottom: 15px;
+      position: relative;
+      z-index: 2;
+      display: none; /* Hidden in circular design */
+    }
+    
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      position: relative;
+      z-index: 2;
+      padding: 8px 16px;
+      border-radius: 20px;
+      transition: all 0.3s;
+    }
+    
+    .card-link i {
+      margin-left: 5px;
+      transition: transform 0.2s;
+    }
+    
+    .card-link:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+    
+    .card-link:hover i {
+      transform: translateX(5px);
+    }
+    
+    .hidden {
+      display: none;
+    }
+    
+    /* Category Colors */
+    .card[data-category="math"] {
+      border: 3px solid var(--math-color);
+    }
+    
+    .card[data-category="math"] .card-icon {
+      color: var(--math-color);
+    }
+    
+    .card[data-category="math"] .card-link {
+      background: var(--math-color);
+    }
+    
+    .card[data-category="math"] .card-link:hover {
+      background: #2980b9;
+    }
+    
+    .card[data-category="finance"] {
+      border: 3px solid var(--finance-color);
+    }
+    
+    .card[data-category="finance"] .card-icon {
+      color: var(--finance-color);
+    }
+    
+    .card[data-category="finance"] .card-link {
+      background: var(--finance-color);
+    }
+    
+    .card[data-category="finance"] .card-link:hover {
+      background: #27ae60;
+    }
+    
+    .card[data-category="health"] {
+      border: 3px solid var(--health-color);
+    }
+    
+    .card[data-category="health"] .card-icon {
+      color: var(--health-color);
+    }
+    
+    .card[data-category="health"] .card-link {
+      background: var(--health-color);
+    }
+    
+    .card[data-category="health"] .card-link:hover {
+      background: #c0392b;
+    }
+    
+    .card[data-category="conversion"] {
+      border: 3px solid var(--conversion-color);
+    }
+    
+    .card[data-category="conversion"] .card-icon {
+      color: var(--conversion-color);
+    }
+    
+    .card[data-category="conversion"] .card-link {
+      background: var(--conversion-color);
+    }
+    
+    .card[data-category="conversion"] .card-link:hover {
+      background: #d35400;
+    }
+    
+    .card[data-category="date"] {
+      border: 3px solid var(--date-color);
+    }
+    
+    .card[data-category="date"] .card-icon {
+      color: var(--date-color);
+    }
+    
+    .card[data-category="date"] .card-link {
+      background: var(--date-color);
+    }
+    
+    .card[data-category="date"] .card-link:hover {
+      background: #8e44ad;
+    }
+    
+    .card[data-category="utility"] {
+      border: 3px solid var(--utility-color);
+    }
+    
+    .card[data-category="utility"] .card-icon {
+      color: var(--utility-color);
+    }
+    
+    .card[data-category="utility"] .card-link {
+      background: var(--utility-color);
+    }
+    
+    .card[data-category="utility"] .card-link:hover {
+      background: #16a085;
+    }
+    
+    .card[data-category="education"] {
+      border: 3px solid var(--education-color);
+    }
+    
+    .card[data-category="education"] .card-icon {
+      color: var(--education-color);
+    }
+    
+    .card[data-category="education"] .card-link {
+      background: var(--education-color);
+    }
+    
+    .card[data-category="education"] .card-link:hover {
+      background: #6c3483;
+    }
+    
+    .card[data-category="indian"] {
+      border: 3px solid var(--indian-color);
+    }
+    
+    .card[data-category="indian"] .card-icon {
+      color: var(--indian-color);
+    }
+    
+    .card[data-category="indian"] .card-link {
+      background: var(--indian-color);
+    }
+    
+    .card[data-category="indian"] .card-link:hover {
+      background: #ff5722;
+    }
+    
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: white;
+      padding: 60px 0 25px;
+      margin-top: 40px;
+    }
+    
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    
+    .footer-section h3 {
+      font-size: 1.4rem;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 15px;
+    }
+    
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--secondary);
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+    
+    .footer-links a {
+      color: #ddd;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-block;
+    }
+    
+    .footer-links a:hover {
+      color: var(--secondary);
+      transform: translateX(5px);
+    }
+    
+    .footer-bottom {
+      text-align: center;
+      padding-top: 25px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+    
+    /* Mobile Menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 300px;
+      height: 100vh;
+      background: var(--primary);
+      z-index: 1001;
+      padding: 80px 30px 30px;
+      transition: right 0.3s ease;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+      overflow-y: auto;
+    }
+    
+    .mobile-menu active {
+      right: 0;
+    }
+    
+    .mobile-menu ul {
+      list-style: none;
+    }
+    
+    .mobile-menu li {
+      margin-bottom: 15px;
+    }
+    
+    .mobile-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2rem;
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+    
+    .mobile-menu a:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .close-menu {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      display: none;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .nav-menu {
+        display: none;
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+      
+      .header-container {
+        padding: 0 15px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .logo h1 {
+        font-size: 1.5rem;
+      }
+      
+      .hero h2 {
+        font-size: 1.8rem;
+      }
+      
+      .stats {
+        gap: 15px;
+      }
+      
+      .stat-item {
+        padding: 15px 20px;
+        min-width: 120px;
+      }
+      
+      .stat-item i {
+        font-size: 2rem;
+      }
+      
+      .search-filter {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 15px;
+        top: 70px;
+      }
+      
+      .search-box, .category-filter {
+        width: 100%;
+        max-width: 100%;
+      }
+      
+      .grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 20px;
+        padding: 30px 15px;
+      }
+      
+      .card {
+        padding: 20px 15px;
+        min-height: 140px;
+      }
+      
+      .card-icon {
+        font-size: 2rem;
+        margin-bottom: 10px;
+      }
+      
+      .card h3 {
+        font-size: 0.9rem;
+      }
+      
+      .card-link {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+      }
+      
+      .category-header h2 {
+        font-size: 1.8rem;
+      }
+      
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+
+    /* Custom icon styles */
+    .icon-custom {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      margin-bottom: 15px;
+    }
+    
+    .icon-custom i {
+      font-size: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="main-header">
+    <div class="container header-container">
+      <div class="logo">
+        <i class="fas fa-calculator"></i>
+        <h1>Calculator Hub</h1>
+      </div>
+      
+      <nav>
+        <ul class="nav-menu">
+          <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+          <li><a href="about-us.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+          <li><a href="contact-us.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+          <li><a href="privacy-policy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+          <li><a href="disclaimer.html"><i class="fas fa-exclamation-triangle"></i> Disclaimer</a></li>
+          <li><a href="terms-conditions.html"><i class="fas fa-file-contract"></i> Terms & Conditions</a></li>
+        </ul>
+        
+        <div class="hamburger" id="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </nav>
+    </div>
+  </header>
+  
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="close-menu" id="closeMenu">&times;</button>
+    <ul>
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="about-us.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+      <li><a href="contact-us.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+      <li><a href="privacy-policy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+      <li><a href="disclaimer.html"><i class="fas fa-exclamation-triangle"></i> Disclaimer</a></li>
+      <li><a href="terms-conditions.html"><i class="fas fa-file-contract"></i> Terms & Conditions</a></li>
+    </ul>
+  </div>
+  
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-content">
+      <h2>Smart Calculators for Your Daily Needs</h2>
+      <p>From household budgeting to advanced mathematics, we have calculators for every Indian's needs. All tools are free, easy to use, and provide instant results.</p>
+      
+      <div class="stats">
+        <div class="stat-item">
+          <i class="fas fa-calculator"></i>
+          <div>40+ Calculators</div>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-users"></i>
+          <div>100% Free Tools</div>
+        </div>
+        <div class="stat-item">
+          <i class="fas fa-bolt"></i>
+          <div>Instant Results</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Search and Filter -->
+  <div class="search-filter">
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchBox" placeholder="Search for calculators...">
+    </div>
+    
+    <div class="category-filter">
+      <i class="fas fa-filter"></i>
+      <select id="categoryFilter">
+        <option value="all">All Categories</option>
+        <option value="math">Math & Algebra</option>
+        <option value="finance">Finance & Investment</option>
+        <option value="health">Health & Fitness</option>
+        <option value="conversion">Conversion Tools</option>
+        <option value="date">Date & Time</option>
+        <option value="utility">Utilities</option>
+        <option value="education">Education</option>
+        <option value="indian">Indian Life</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Math Calculators Section -->
+    <div class="category-header math-header">
+      <h2><i class="fas fa-square-root-alt"></i> Math & Algebra Calculators</h2>
+      <p>Advanced mathematical tools for students and professionals</p>
+    </div>
+    
+    <div class="grid">
+      <div class="card" data-category="math">
+        <div class="card-icon"><i class="fas fa-calculator"></i></div>
+        <h3>Basic Calculator</h3>
+        <p>Perform simple arithmetic operations like addition, subtraction, multiplication, and division.</p>
+        <a href="basic-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="math">
+        <div class="card-icon"><i class="fas fa-square-root-alt"></i></div>
+        <h3>Scientific Calculator</h3>
+        <p>Advanced math functions for students and professionals including trigonometry and logarithms.</p>
+        <a href="scientific-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="math">
+        <div class="card-icon"><i class="fas fa-exclamation"></i></div>
+        <h3>Factorial Calculator</h3>
+        <p>Calculate the factorial of any number quickly for permutations and combinations problems.</p>
+        <a href="factorial-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="math">
+        <div class="card-icon"><i class="fas fa-function"></i></div>
+        <h3>Quadratic Equation Solver</h3>
+        <p>Solve quadratic equations instantly with step-by-step solutions for math students.</p>
+        <a href="quadratic-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="math">
+        <div class="card-icon"><i class="fas fa-th"></i></div>
+        <h3>Matrix Calculator</h3>
+        <p>Perform matrix operations including addition, multiplication, and determinant calculation.</p>
+        <a href="matrix-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="math">
+        <div class="card-icon"><i class="fas fa-superscript"></i></div>
+        <h3>Logarithm Calculator</h3>
+        <p>Calculate logarithmic values with different bases for advanced mathematics problems.</p>
+        <a href="logarithm-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="math">
+        <div class="card-icon"><i class="fas fa-dice"></i></div>
+        <h3>Prime Number Checker</h3>
+        <p>Check if a number is prime and find prime factors for cryptography and mathematics.</p>
+        <a href="prime-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="math">
+        <div class="card-icon"><i class="fas fa-divide"></i></div>
+        <h3>GCD & LCM Calculator</h3>
+        <p>Find Greatest Common Divisor and Least Common Multiple of numbers easily.</p>
+        <a href="gcd-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="math">
+        <div class="card-icon"><i class="fas fa-sort-amount-down"></i></div>
+        <h3>HCF Calculator</h3>
+        <p>Calculate the Highest Common Factor of multiple numbers.</p>
+        <a href="hcf-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <!-- Finance Calculators Section -->
+    <div class="category-header finance-header">
+      <h2><i class="fas fa-dollar-sign"></i> Finance & Investment Calculators</h2>
+      <p>Tools for managing your money, investments, and financial planning</p>
+    </div>
+    
+    <div class="grid">
+      <div class="card" data-category="finance">
+        <div class="card-icon"><i class="fas fa-money-bill-wave"></i></div>
+        <h3>Loan Calculator</h3>
+        <p>Calculate EMI and loan repayment schedule for personal, home, or car loans.</p>
+        <a href="loan-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="finance">
+        <div class="card-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+        <h3>Tax Calculator</h3>
+        <p>Estimate your income taxes easily and plan your finances for better savings.</p>
+        <a href="tax-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="finance">
+        <div class="card-icon"><i class="fas fa-piggy-bank"></i></div>
+        <h3>Savings Calculator</h3>
+        <p>Track your savings growth over time with different interest rates and contribution amounts.</p>
+        <a href="savings-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="finance">
+        <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+        <h3>Investment Calculator</h3>
+        <p>Plan your investments wisely with compound interest calculations and ROI projections.</p>
+        <a href="investment-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="finance">
+        <div class="card-icon"><i class="fas fa-university"></i></div>
+        <h3>Retirement Calculator</h3>
+        <p>Plan for your retirement savings needs based on your income, age, and lifestyle goals.</p>
+        <a href="retirement-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="finance">
+        <div class="card-icon"><i class="fas fa-percentage"></i></div>
+        <h3>Compound Interest Calculator</h3>
+        <p>Calculate compound interest earnings on savings and investments over time.</p>
+        <a href="compound-interest-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="finance">
+        <div class="card-icon"><i class="fas fa-wallet"></i></div>
+        <h3>Budget Calculator</h3>
+        <p>Plan your monthly budget and track your expenses for better financial management.</p>
+        <a href="budget-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="finance">
+        <div class="card-icon"><i class="fas fa-credit-card"></i></div>
+        <h3>EMI Calculator</h3>
+        <p>Calculate Equated Monthly Installments for loans with different interest rates and tenures.</p>
+        <a href="emi-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <!-- Health Calculators Section -->
+    <div class="category-header health-header">
+      <h2><i class="fas fa-heartbeat"></i> Health & Fitness Calculators</h2>
+      <p>Tools for monitoring your health, fitness, and wellness goals</p>
+    </div>
+    
+    <div class="grid">
+      <div class="card" data-category="health">
+        <div class="card-icon"><i class="fas fa-weight"></i></div>
+        <h3>BMI Calculator</h3>
+        <p>Check your Body Mass Index to determine if you're at a healthy weight for your height.</p>
+        <a href="bmi-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="health">
+        <div class="card-icon"><i class="fas fa-apple-alt"></i></div>
+        <h3>Calories Calculator</h3>
+        <p>Track your daily calorie intake and expenditure for weight management goals.</p>
+        <a href="calories-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="health">
+        <div class="card-icon"><i class="fas fa-tint"></i></div>
+        <h3>Water Intake Calculator</h3>
+        <p>Know how much water you need daily based on your weight, activity level and climate.</p>
+        <a href="water-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="health">
+        <div class="card-icon"><i class="fas fa-heart"></i></div>
+        <h3>Heart Rate Calculator</h3>
+        <p>Calculate target heart rate zones for effective and safe cardiovascular exercise.</p>
+        <a href="heart-rate-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="health">
+        <div class="card-icon"><i class="fas fa-user"></i></div>
+        <h3>Body Fat Calculator</h3>
+        <p>Estimate your body fat percentage using various methods for health assessment.</p>
+        <a href="body-fat-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="health">
+        <div class="card-icon"><i class="fas fa-balance-scale"></i></div>
+        <h3>Ideal Weight Calculator</h3>
+        <p>Find your healthy weight range based on height, gender, and body frame size.</p>
+        <a href="ideal-weight-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="health">
+        <div class="card-icon"><i class="fas fa-bed"></i></div>
+        <h3>Sleep Calculator</h3>
+        <p>Track optimal sleep cycles and wake up times for better rest and energy levels.</p>
+        <a href="sleep-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="health">
+        <div class="card-icon"><i class="fas fa-running"></i></div>
+        <h3>Fitness Calculator</h3>
+        <p>Calculate your fitness level and track your workout progress.</p>
+        <a href="fitness-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+
+    <!-- Indian Life Calculators Section -->
+    <div class="category-header indian-header">
+      <h2><i class="fas fa-home"></i> Indian Life Calculators</h2>
+      <p>Specialized tools for everyday Indian household and business needs</p>
+    </div>
+    
+    <div class="grid">
+      <div class="card" data-category="indian">
+        <div class="card-icon"><i class="fas fa-money-bill"></i></div>
+        <h3>Currency Converter</h3>
+        <p>Convert between Indian Rupee and other world currencies with up-to-date exchange rates.</p>
+        <a href="currency-converter.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="indian">
+        <div class="card-icon"><i class="fas fa-bolt"></i></div>
+        <h3>Electricity Bill Calculator</h3>
+        <p>Calculate your monthly electricity bill based on appliance usage and tariff rates.</p>
+        <a href="electricity-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="indian">
+        <div class="card-icon"><i class="fas fa-gas-pump"></i></div>
+        <h3>Fuel Cost Calculator</h3>
+        <p>Estimate fuel expenses for trips based on Indian fuel prices and vehicle mileage.</p>
+        <a href="fuel-cost-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="indian">
+        <div class="card-icon"><i class="fas fa-home"></i></div>
+        <h3>Home Loan Calculator</h3>
+        <p>Calculate EMI for home loans with Indian interest rates and repayment terms.</p>
+        <a href="home-loan-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="indian">
+        <div class="card-icon"><i class="fas fa-car"></i></div>
+        <h3>Car Loan Calculator</h3>
+        <p>Calculate EMI for car loans with Indian interest rates and repayment terms.</p>
+        <a href="car-loan-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="indian">
+        <div class="card-icon"><i class="fas fa-chart-pie"></i></div>
+        <h3>GST Calculator</h3>
+        <p>Calculate GST amounts for goods and services with Indian GST rates.</p>
+        <a href="gst-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="indian">
+        <div class="card-icon"><i class="fas fa-utensils"></i></div>
+        <h3>Recipe Converter</h3>
+        <p>Convert recipe measurements between metric and Indian units (cups, teaspoons, etc.).</p>
+        <a href="recipe-converter.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="indian">
+        <div class="card-icon"><i class="fas fa-ruler"></i></div>
+        <h3>Unit Converter</h3>
+        <p>Convert between Indian units and metric units for length, weight, and volume.</p>
+        <a href="unit-converter.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="indian">
+        <div class="card-icon"><i class="fas fa-rupee-sign"></i></div>
+        <h3>Currency Calculator</h3>
+        <p>Calculate currency conversions with real-time exchange rates.</p>
+        <a href="currency-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="indian">
+        <div class="card-icon"><i class="fas fa-tractor"></i></div>
+        <h3>Agriculture Calculator</h3>
+        <p>Calculate crop yield, fertilizer requirements, and farming profits.</p>
+        <a href="agriculture-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="indian">
+        <div class="card-icon"><i class="fas fa-store"></i></div>
+        <h3>Business Calculator</h3>
+        <p>Calculate profit margins, inventory costs, and business expenses.</p>
+        <a href="business-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="card" data-category="indian">
+        <div class="card-icon"><i class="fas fa-house-user"></i></div>
+        <h3>Home Budget Calculator</h3>
+        <p>Plan your household budget and track monthly expenses.</p>
+        <a href="home-budget-calculator.html" class="card-link">Use <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Calculator Hub</h3>
+          <p>Your one-stop destination for all types of online calculators. We provide free tools to help with math, finance, health, and everyday calculations.</p>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="about-us.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+            <li><a href="contact-us.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+            <li><a href="privacy-policy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+            <li><a href="disclaimer.html"><i class="fas fa-exclamation-triangle"></i> Disclaimer</a></li>
+            <li><a href="terms-conditions.html"><i class="fas fa-file-contract"></i> Terms & Conditions</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Popular Calculators</h3>
+          <ul class="footer-links">
+            <li><a href="bmi-calculator.html"><i class="fas fa-weight"></i> BMI Calculator</a></li>
+            <li><a href="loan-calculator.html"><i class="fas fa-money-bill-wave"></i> Loan Calculator</a></li>
+            <li><a href="tax-calculator.html"><i class="fas fa-file-invoice-dollar"></i> Tax Calculator</a></li>
+            <li><a href="currency-converter.html"><i class="fas fa-money-bill"></i> Currency Converter</a></li>
+            <li><a href="gst-calculator.html"><i class="fas fa-chart-pie"></i> GST Calculator</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2023 Calculator Hub. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu functionality
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    const overlay = document.getElementById('overlay');
+    
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.add('active');
+      overlay.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    });
+    
+    closeMenu.addEventListener('click', closeMobileMenu);
+    overlay.addEventListener('click', closeMobileMenu);
+    
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('active');
+      overlay.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+    
+    // Search and filter functionality
+    const searchBox = document.getElementById('searchBox');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const cards = document.querySelectorAll('.card');
+    const categoryHeaders = document.querySelectorAll('.category-header');
+
+    function filterCalculators() {
+      const searchText = searchBox.value.toLowerCase();
+      const category = categoryFilter.value;
+      
+      // Hide all cards first
+      cards.forEach(card => {
+        card.classList.add('hidden');
+      });
+      
+      // Hide all category headers
+      categoryHeaders.forEach(header => {
+        header.style.display = 'none';
+      });
+      
+      // Show cards that match the search and category
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        const cardCategory = card.dataset.category;
+        
+        if ((category === 'all' || cardCategory === category) && text.includes(searchText)) {
+          card.classList.remove('hidden');
+        }
+      });
+      
+      // Show category headers if in "all" mode
+      if (category === 'all') {
+        categoryHeaders.forEach(header => {
+          header.style.display = 'block';
+        });
+      } else {
+        // Show only the selected category header
+        const selectedHeader = document.querySelector(`.${category}-header`);
+        if (selectedHeader) {
+          selectedHeader.style.display = 'block';
+        }
+      }
+    }
+
+    searchBox.addEventListener('input', filterCalculators);
+    categoryFilter.addEventListener('change', filterCalculators);
+
+    // Initialize the page
+    window.addEventListener('load', function() {
+      filterCalculators();
+    });
+  </script>
+</body>
+</html>

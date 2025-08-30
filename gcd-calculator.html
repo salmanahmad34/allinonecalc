@@ -1,0 +1,686 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GCD & LCM Calculator - Calculator Hub</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background: #f4f6f9;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* Header Styles */
+    .main-header {
+      background: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
+      color: #fff;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo i {
+      font-size: 2rem;
+    }
+    
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    
+    .back-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+    
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    
+    /* Calculator Container */
+    .calculator-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .calculator-title {
+      color: #2c3e50;
+      margin-bottom: 20px;
+      font-size: 28px;
+      text-align: center;
+    }
+    
+    /* GCD & LCM Calculator */
+    .calculator {
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 800px;
+      text-align: center;
+    }
+    
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    
+    .input-field {
+      width: 100%;
+      height: 50px;
+      background: #f9f9f9;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      padding: 10px 15px;
+      font-size: 18px;
+      text-align: center;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+      color: #2c3e50;
+      transition: border-color 0.3s;
+    }
+    
+    .input-field:focus {
+      outline: none;
+      border-color: #3498db;
+    }
+    
+    .input-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    
+    .input-col {
+      flex: 1;
+    }
+    
+    .calculate-btn {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s;
+      width: 100%;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+    
+    .calculate-btn:hover {
+      background: #2980b9;
+      transform: translateY(-2px);
+    }
+    
+    .result-container {
+      margin-top: 25px;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      text-align: center;
+    }
+    
+    .result-title {
+      font-size: 20px;
+      color: #2c3e50;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+    
+    .result {
+      font-size: 24px;
+      font-weight: 700;
+      word-break: break-all;
+    }
+    
+    .gcd-result {
+      color: #3498db;
+    }
+    
+    .lcm-result {
+      color: #9b59b6;
+    }
+    
+    .calculation-steps {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #7f8c8d;
+      text-align: left;
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    
+    /* Explanation Section */
+    .explanation {
+      margin-top: 30px;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      text-align: left;
+    }
+    
+    .explanation h3 {
+      color: #2c3e50;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+    
+    .explanation p {
+      margin-bottom: 15px;
+      color: #555;
+    }
+    
+    .explanation ul {
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+    
+    .explanation li {
+      margin-bottom: 8px;
+      color: #555;
+    }
+    
+    /* Blog Section */
+    .blog-section {
+      margin-top: 30px;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      text-align: left;
+    }
+    
+    .blog-section h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+    
+    .blog-section h3 {
+      font-size: 20px;
+      margin-top: 25px;
+      color: #34495e;
+    }
+    
+    .blog-section p, .blog-section ul {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #555;
+    }
+    
+    .blog-section ul {
+      margin-left: 20px;
+      line-height: 1.8;
+    }
+    
+    /* Mobile Menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 300px;
+      height: 100vh;
+      background: #2c3e50;
+      z-index: 1001;
+      padding: 80px 30px 30px;
+      transition: right 0.3s ease;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+      overflow-y: auto;
+    }
+    
+    .mobile-menu.active {
+      right: 0;
+    }
+    
+    .mobile-menu ul {
+      list-style: none;
+    }
+    
+    .mobile-menu li {
+      margin-bottom: 15px;
+    }
+    
+    .mobile-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2rem;
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+    
+    .mobile-menu a:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .close-menu {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      display: none;
+    }
+    
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-container {
+        padding: 0 15px;
+      }
+      
+      .logo h1 {
+        font-size: 1.5rem;
+      }
+      
+      .back-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+      
+      .calculator {
+        padding: 15px;
+      }
+      
+      .input-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="logo">
+        <i class="fas fa-calculator"></i>
+        <h1>Calculator Hub</h1>
+      </div>
+      
+      <button class="back-btn" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+      
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="close-menu" id="closeMenu">&times;</button>
+    <ul>
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="prime-checker.html"><i class="fas fa-calculator"></i> Prime Checker</a></li>
+      <li><a href="about-us.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+      <li><a href="contact-us.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+      <li><a href="privacy-policy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+      <li><a href="disclaimer.html"><i class="fas fa-exclamation-triangle"></i> Disclaimer</a></li>
+      <li><a href="terms-conditions.html"><i class="fas fa-file-contract"></i> Terms & Conditions</a></li>
+    </ul>
+  </div>
+  
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Calculator Section -->
+  <div class="calculator-container">
+    <h2 class="calculator-title">GCD & LCM Calculator</h2>
+    
+    <div class="calculator">
+      <div class="input-group">
+        <label>Enter two or more positive integers:</label>
+        <div class="input-row">
+          <div class="input-col">
+            <input type="number" id="number1" class="input-field" placeholder="Number 1" min="1" step="1" value="24">
+          </div>
+          <div class="input-col">
+            <input type="number" id="number2" class="input-field" placeholder="Number 2" min="1" step="1" value="36">
+          </div>
+        </div>
+        <div id="additionalNumbers"></div>
+        <button class="calculate-btn" style="margin-top: 5px; padding: 8px; font-size: 14px;" onclick="addNumberField()">
+          <i class="fas fa-plus"></i> Add Another Number
+        </button>
+      </div>
+      
+      <button class="calculate-btn" onclick="calculateGCDandLCM()">
+        Calculate GCD & LCM
+      </button>
+      
+      <div class="result-container">
+        <div class="result-title">Results:</div>
+        <div class="result gcd-result" id="gcdResult">-</div>
+        <div class="result lcm-result" id="lcmResult">-</div>
+        <div class="calculation-steps" id="calculationSteps"></div>
+      </div>
+      
+      <div class="explanation">
+        <h3>What is GCD?</h3>
+        <p>The Greatest Common Divisor (GCD) of two or more integers is the largest positive integer that divides each of the integers without a remainder. For example, the GCD of 8 and 12 is 4.</p>
+        
+        <h3>What is LCM?</h3>
+        <p>The Least Common Multiple (LCM) of two or more integers is the smallest positive integer that is divisible by each of them. For example, the LCM of 4 and 6 is 12.</p>
+        
+        <h3>Relationship between GCD and LCM:</h3>
+        <p>For two numbers a and b, the product of GCD and LCM equals the product of the numbers:</p>
+        <p style="text-align: center; font-weight: bold;">GCD(a, b) × LCM(a, b) = a × b</p>
+        
+        <h3>Applications:</h3>
+        <ul>
+          <li>Simplifying fractions</li>
+          <li>Solving problems involving ratios</li>
+          <li>Scheduling and timing problems</li>
+          <li>Cryptography and number theory</li>
+        </ul>
+      </div>
+      
+      <div class="blog-section">
+        <h2>About GCD and LCM</h2>
+        <p>
+          The concepts of Greatest Common Divisor (GCD) and Least Common Multiple (LCM) are fundamental in number theory
+          and have practical applications in various fields including mathematics, computer science, and engineering.
+        </p>
+        
+        <h3>✨ Methods for Calculating GCD:</h3>
+        <ul>
+          <li><strong>Listing factors:</strong> List all factors and find the largest common one</li>
+          <li><strong>Prime factorization:</strong> Express numbers as products of primes and multiply common primes</li>
+          <li><strong>Euclidean algorithm:</strong> Efficient method using repeated division (used in this calculator)</li>
+          <li><strong>Binary GCD algorithm:</strong> Efficient algorithm that uses bitwise operations</li>
+        </ul>
+        
+        <h3>📈 Methods for Calculating LCM:</h3>
+        <ul>
+          <li><strong>Listing multiples:</strong> List multiples until finding the smallest common one</li>
+          <li><strong>Prime factorization:</strong> Multiply the highest power of all primes present</li>
+          <li><strong>Using the GCD relationship:</strong> LCM(a, b) = (a × b) / GCD(a, b)</li>
+          <li><strong>Using the reduction method:</strong> Divide numbers by common factors and multiply the divisors</li>
+        </ul>
+        
+        <h3>🔢 Interesting Facts:</h3>
+        <ul>
+          <li>The Euclidean algorithm for GCD is one of the oldest algorithms still in common use</li>
+          <li>GCD is also known as the Greatest Common Factor (GCF) or Highest Common Factor (HCF)</li>
+          <li>For more than two numbers, GCD and LCM can be calculated recursively</li>
+          <li>LCM is useful for finding when repeating events will synchronize</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Add additional number fields
+    function addNumberField() {
+      const additionalNumbers = document.getElementById('additionalNumbers');
+      const count = additionalNumbers.childElementCount + 3; // We already have 2 fields
+      
+      if (count > 10) {
+        alert('Maximum 10 numbers allowed');
+        return;
+      }
+      
+      const newField = document.createElement('div');
+      newField.className = 'input-row';
+      newField.innerHTML = `
+        <div class="input-col">
+          <input type="number" class="input-field additional-number" placeholder="Number ${count}" min="1" step="1" value="">
+        </div>
+        <div class="input-col">
+          <button class="calculate-btn" style="background: #e74c3c; padding: 8px; font-size: 14px;" onclick="removeNumberField(this)">
+            <i class="fas fa-times"></i> Remove
+          </button>
+        </div>
+      `;
+      
+      additionalNumbers.appendChild(newField);
+    }
+    
+    // Remove number field
+    function removeNumberField(button) {
+      const fieldRow = button.parentElement.parentElement;
+      fieldRow.remove();
+    }
+    
+    // Get all input numbers
+    function getAllNumbers() {
+      const numbers = [];
+      
+      // Get the first two numbers
+      const number1 = parseInt(document.getElementById('number1').value);
+      const number2 = parseInt(document.getElementById('number2').value);
+      
+      if (!isNaN(number1) && number1 > 0) numbers.push(number1);
+      if (!isNaN(number2) && number2 > 0) numbers.push(number2);
+      
+      // Get additional numbers
+      const additionalInputs = document.querySelectorAll('.additional-number');
+      additionalInputs.forEach(input => {
+        const value = parseInt(input.value);
+        if (!isNaN(value) && value > 0) numbers.push(value);
+      });
+      
+      return numbers;
+    }
+    
+    // Calculate GCD using Euclidean algorithm
+    function calculateGCD(a, b) {
+      if (b === 0) return a;
+      return calculateGCD(b, a % b);
+    }
+    
+    // Calculate GCD for multiple numbers
+    function calculateGCDForNumbers(numbers) {
+      if (numbers.length === 0) return 0;
+      
+      let result = numbers[0];
+      for (let i = 1; i < numbers.length; i++) {
+        result = calculateGCD(result, numbers[i]);
+        
+        // If at any point GCD becomes 1, we can break early
+        if (result === 1) return 1;
+      }
+      
+      return result;
+    }
+    
+    // Calculate LCM for two numbers
+    function calculateLCM(a, b) {
+      return (a * b) / calculateGCD(a, b);
+    }
+    
+    // Calculate LCM for multiple numbers
+    function calculateLCMForNumbers(numbers) {
+      if (numbers.length === 0) return 0;
+      
+      let result = numbers[0];
+      for (let i = 1; i < numbers.length; i++) {
+        result = calculateLCM(result, numbers[i]);
+      }
+      
+      return result;
+    }
+    
+    // Main calculation function
+    function calculateGCDandLCM() {
+      const numbers = getAllNumbers();
+      
+      // Validate input
+      if (numbers.length < 2) {
+        document.getElementById('gcdResult').textContent = 'Please enter at least two valid numbers';
+        document.getElementById('lcmResult').textContent = '';
+        document.getElementById('calculationSteps').textContent = '';
+        return;
+      }
+      
+      // Calculate GCD and LCM
+      const gcd = calculateGCDForNumbers(numbers);
+      const lcm = calculateLCMForNumbers(numbers);
+      
+      // Display results
+      document.getElementById('gcdResult').textContent = `GCD: ${gcd}`;
+      document.getElementById('lcmResult').textContent = `LCM: ${lcm}`;
+      
+      // Show calculation steps
+      let stepsHtml = `<p><strong>Calculation Steps:</strong></p>`;
+      stepsHtml += `<p>Numbers: ${numbers.join(', ')}</p>`;
+      
+      if (numbers.length === 2) {
+        stepsHtml += `<p>Using the relationship: GCD × LCM = a × b</p>`;
+        stepsHtml += `<p>${gcd} × ${lcm} = ${numbers[0]} × ${numbers[1]}</p>`;
+        stepsHtml += `<p>${gcd * lcm} = ${numbers[0] * numbers[1]}</p>`;
+      } else {
+        stepsHtml += `<p>GCD calculated using the Euclidean algorithm recursively</p>`;
+        stepsHtml += `<p>LCM calculated using the relationship: LCM(a,b,c) = LCM(LCM(a,b),c)</p>`;
+      }
+      
+      document.getElementById('calculationSteps').innerHTML = stepsHtml;
+    }
+    
+    // Allow only numbers to be entered
+    function setupNumberInputValidation() {
+      const numberInputs = document.querySelectorAll('input[type="number"]');
+      numberInputs.forEach(input => {
+        input.addEventListener('keydown', function(e) {
+          // Allow: backspace, delete, tab, escape, enter
+          if ([46, 8, 9, 27, 13, 110].includes(e.keyCode) || 
+              // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
+              (e.keyCode === 65 && e.ctrlKey === true) || 
+              (e.keyCode === 67 && e.ctrlKey === true) || 
+              (e.keyCode === 86 && e.ctrlKey === true) || 
+              (e.keyCode === 88 && e.ctrlKey === true) ||
+              // Allow: numbers on keypad
+              (e.keyCode >= 96 && e.keyCode <= 105)) {
+            return;
+          }
+          // Prevent if not a number
+          if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+          }
+        });
+      });
+    }
+    
+    // Check when Enter key is pressed
+    document.addEventListener('keyup', function(e) {
+      if (e.keyCode === 13) {
+        calculateGCDandLCM();
+      }
+    });
+    
+    // Back button functionality
+    function goBack() {
+      window.history.back();
+    }
+    
+    // Mobile menu functionality
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    const overlay = document.getElementById('overlay');
+    
+    hamburger.addEventListener('click', function() {
+      mobileMenu.classList.add('active');
+      overlay.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    });
+    
+    closeMenu.addEventListener('click', closeMobileMenu);
+    overlay.addEventListener('click', closeMobileMenu);
+    
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('active');
+      overlay.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+    
+    // Initialize on page load
+    window.onload = function() {
+      setupNumberInputValidation();
+    };
+  </script>
+</body>
+</html>

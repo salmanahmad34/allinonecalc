@@ -1,0 +1,696 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prime Number Checker - Calculator Hub</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background: #f4f6f9;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* Header Styles */
+    .main-header {
+      background: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
+      color: #fff;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo i {
+      font-size: 2rem;
+    }
+    
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    
+    .back-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+    
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    
+    /* Calculator Container */
+    .calculator-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .calculator-title {
+      color: #2c3e50;
+      margin-bottom: 20px;
+      font-size: 28px;
+      text-align: center;
+    }
+    
+    /* Prime Checker */
+    .calculator {
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+    
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    
+    .input-field {
+      width: 100%;
+      height: 50px;
+      background: #f9f9f9;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      padding: 10px 15px;
+      font-size: 18px;
+      text-align: center;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+      color: #2c3e50;
+      transition: border-color 0.3s;
+    }
+    
+    .input-field:focus {
+      outline: none;
+      border-color: #3498db;
+    }
+    
+    .check-btn {
+      background: #2ecc71;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s;
+      width: 100%;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+    
+    .check-btn:hover {
+      background: #27ae60;
+      transform: translateY(-2px);
+    }
+    
+    .result-container {
+      margin-top: 25px;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      text-align: center;
+    }
+    
+    .result-title {
+      font-size: 20px;
+      color: #2c3e50;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+    
+    .result {
+      font-size: 24px;
+      font-weight: 700;
+      word-break: break-all;
+    }
+    
+    .prime {
+      color: #2ecc71;
+    }
+    
+    .not-prime {
+      color: #e74c3c;
+    }
+    
+    .factors {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #7f8c8d;
+    }
+    
+    /* Explanation Section */
+    .explanation {
+      margin-top: 30px;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      text-align: left;
+    }
+    
+    .explanation h3 {
+      color: #2c3e50;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+    
+    .explanation p {
+      margin-bottom: 15px;
+      color: #555;
+    }
+    
+    .explanation ul {
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+    
+    .explanation li {
+      margin-bottom: 8px;
+      color: #555;
+    }
+    
+    /* Range Checker */
+    .range-checker {
+      margin-top: 30px;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      text-align: center;
+    }
+    
+    .range-checker h3 {
+      color: #2c3e50;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+    
+    .range-inputs {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
+    
+    .range-input {
+      width: 120px;
+      height: 40px;
+      text-align: center;
+      font-size: 16px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      padding: 5px;
+    }
+    
+    .find-primes-btn {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+    }
+    
+    .find-primes-btn:hover {
+      background: #2980b9;
+    }
+    
+    .primes-list {
+      margin-top: 15px;
+      padding: 15px;
+      background: white;
+      border-radius: 8px;
+      max-height: 200px;
+      overflow-y: auto;
+      text-align: left;
+    }
+    
+    /* Blog Section */
+    .blog-section {
+      margin-top: 40px;
+      padding: 25px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 800px;
+    }
+    
+    .blog-section h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+    
+    .blog-section h3 {
+      font-size: 20px;
+      margin-top: 25px;
+      color: #34495e;
+    }
+    
+    .blog-section p, .blog-section ul {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #555;
+    }
+    
+    .blog-section ul {
+      margin-left: 20px;
+      line-height: 1.8;
+    }
+    
+    /* Mobile Menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 300px;
+      height: 100vh;
+      background: #2c3e50;
+      z-index: 1001;
+      padding: 80px 30px 30px;
+      transition: right 0.3s ease;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+      overflow-y: auto;
+    }
+    
+    .mobile-menu.active {
+      right: 0;
+    }
+    
+    .mobile-menu ul {
+      list-style: none;
+    }
+    
+    .mobile-menu li {
+      margin-bottom: 15px;
+    }
+    
+    .mobile-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2rem;
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+    
+    .mobile-menu a:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .close-menu {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      display: none;
+    }
+    
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-container {
+        padding: 0 15px;
+      }
+      
+      .logo h1 {
+        font-size: 1.5rem;
+      }
+      
+      .back-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+      
+      .calculator {
+        padding: 15px;
+      }
+      
+      .range-inputs {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="logo">
+        <i class="fas fa-calculator"></i>
+        <h1>Calculator Hub</h1>
+      </div>
+      
+      <button class="back-btn" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+      
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="close-menu" id="closeMenu">&times;</button>
+    <ul>
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="about-us.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+      <li><a href="contact-us.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+      <li><a href="privacy-policy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+      <li><a href="disclaimer.html"><i class="fas fa-exclamation-triangle"></i> Disclaimer</a></li>
+      <li><a href="terms-conditions.html"><i class="fas fa-file-contract"></i> Terms & Conditions</a></li>
+    </ul>
+  </div>
+  
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Calculator Section -->
+  <div class="calculator-container">
+    <h2 class="calculator-title">Prime Number Checker</h2>
+    
+    <div class="calculator">
+      <div class="input-group">
+        <label for="numberInput">Enter a positive integer:</label>
+        <input type="number" id="numberInput" class="input-field" placeholder="e.g., 17" min="2" step="1" onkeypress="return event.charCode >= 48 && event.charCode <= 57">
+      </div>
+      
+      <button class="check-btn" onclick="checkPrime()">
+        Check if Prime
+      </button>
+      
+      <div class="result-container">
+        <div class="result-title">Result:</div>
+        <div class="result" id="result">-</div>
+        <div class="factors" id="factors"></div>
+      </div>
+      
+      <div class="explanation">
+        <h3>What is a Prime Number?</h3>
+        <p>A prime number is a natural number greater than 1 that has no positive divisors other than 1 and itself. The first few prime numbers are 2, 3, 5, 7, 11, 13, 17, 19, 23, and so on.</p>
+        
+        <h3>Properties of Prime Numbers:</h3>
+        <ul>
+          <li>All prime numbers are odd except 2 (the only even prime number)</li>
+          <li>1 is not considered a prime number</li>
+          <li>There are infinitely many prime numbers (proved by Euclid)</li>
+          <li>Every integer greater than 1 is either prime or can be factored as a product of primes</li>
+        </ul>
+      </div>
+      
+      <div class="range-checker">
+        <h3>Find Primes in a Range</h3>
+        <div class="range-inputs">
+          <div>
+            <label for="startRange">From:</label>
+            <input type="number" id="startRange" class="range-input" min="2" value="1" step="1">
+          </div>
+          <div>
+            <label for="endRange">To:</label>
+            <input type="number" id="endRange" class="range-input" min="2" value="100" step="1">
+          </div>
+        </div>
+        <button class="find-primes-btn" onclick="findPrimesInRange()">Find Primes</button>
+        
+        <div class="primes-list" id="primesList"></div>
+      </div>
+    </div>
+
+    <!-- Blog Section -->
+    <div class="blog-section">
+      <h2>About Prime Numbers</h2>
+      <p>
+        Prime numbers have fascinated mathematicians for centuries. They are the building blocks of all natural numbers
+        and play a crucial role in number theory. The study of prime numbers has led to important developments in
+        mathematics and computer science, particularly in cryptography.
+      </p>
+      
+      <h3>✨ Applications of Prime Numbers:</h3>
+      <ul>
+        <li><strong>Cryptography:</strong> RSA encryption relies on the difficulty of factoring large numbers into primes</li>
+        <li><strong>Computer Science:</strong> Hash tables often use prime numbers for better distribution</li>
+        <li><strong>Mathematics:</strong> Fundamental theorem of arithmetic states that every integer has a unique prime factorization</li>
+        <li><strong>Physics:</strong> Some models in quantum mechanics use prime numbers</li>
+      </ul>
+      
+      <h3>📈 Interesting Prime Number Facts:</h3>
+      <ul>
+        <li>The largest known prime number (as of 2023) has 24,862,048 digits</li>
+        <li>Prime numbers become less frequent as numbers get larger, but never run out</li>
+        <li>Twin primes are pairs of primes that differ by 2 (e.g., 3 and 5, 11 and 13)</li>
+        <li>There is no known simple formula to generate all prime numbers</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // Check if a number is prime
+    function checkPrime() {
+      const input = document.getElementById('numberInput').value;
+      const number = parseInt(input);
+      
+      // Validate input
+      if (isNaN(number) || number < 2) {
+        document.getElementById('result').textContent = 'Please enter a valid integer greater than 1';
+        document.getElementById('result').className = 'result not-prime';
+        document.getElementById('factors').textContent = '';
+        return;
+      }
+      
+      // Check for primes using trial division
+      const { isPrime, factors } = isPrimeNumber(number);
+      
+      // Display result
+      if (isPrime) {
+        document.getElementById('result').textContent = `${number} is a Prime Number!`;
+        document.getElementById('result').className = 'result prime';
+        document.getElementById('factors').textContent = `Factors: 1 and ${number}`;
+      } else {
+        document.getElementById('result').textContent = `${number} is NOT a Prime Number`;
+        document.getElementById('result').className = 'result not-prime';
+        document.getElementById('factors').textContent = `Factors: ${factors.join(', ')}`;
+      }
+    }
+    
+    // Prime number checking algorithm
+    function isPrimeNumber(n) {
+      if (n < 2) return { isPrime: false, factors: [] };
+      if (n === 2) return { isPrime: true, factors: [1, 2] };
+      if (n % 2 === 0) {
+        const factors = findFactors(n);
+        return { isPrime: false, factors };
+      }
+      
+      // Check divisibility up to the square root
+      const sqrt = Math.sqrt(n);
+      for (let i = 3; i <= sqrt; i += 2) {
+        if (n % i === 0) {
+          const factors = findFactors(n);
+          return { isPrime: false, factors };
+        }
+      }
+      
+      return { isPrime: true, factors: [1, n] };
+    }
+    
+    // Find all factors of a number
+    function findFactors(n) {
+      const factors = [1];
+      const sqrt = Math.sqrt(n);
+      
+      for (let i = 2; i <= sqrt; i++) {
+        if (n % i === 0) {
+          factors.push(i);
+          if (i !== n / i) {
+            factors.push(n / i);
+          }
+        }
+      }
+      
+      factors.push(n);
+      factors.sort((a, b) => a - b);
+      return factors;
+    }
+    
+    // Find primes in a range
+    function findPrimesInRange() {
+      const start = parseInt(document.getElementById('startRange').value) || 1;
+      let end = parseInt(document.getElementById('endRange').value) || 100;
+      
+      // Validate range
+      if (start < 1) {
+        document.getElementById('primesList').innerHTML = '<p>Start must be at least 1</p>';
+        return;
+      }
+      
+      if (end > 10000) {
+        document.getElementById('primesList').innerHTML = '<p>For performance reasons, please keep the range under 10,000</p>';
+        return;
+      }
+      
+      if (end < start) {
+        document.getElementById('primesList').innerHTML = '<p>End value must be greater than start value</p>';
+        return;
+      }
+      
+      // Find primes in range
+      const primes = [];
+      for (let i = Math.max(2, start); i <= end; i++) {
+        if (isPrimeNumber(i).isPrime) {
+          primes.push(i);
+        }
+      }
+      
+      // Display results
+      const primesList = document.getElementById('primesList');
+      if (primes.length === 0) {
+        primesList.innerHTML = '<p>No prime numbers found in this range</p>';
+      } else {
+        primesList.innerHTML = `
+          <p>Found ${primes.length} prime numbers between ${start} and ${end}:</p>
+          <p>${primes.join(', ')}</p>
+        `;
+      }
+    }
+    
+    // Allow only numbers to be entered
+    document.getElementById('numberInput').addEventListener('keydown', function(e) {
+      // Allow: backspace, delete, tab, escape, enter
+      if ([46, 8, 9, 27, 13, 110].includes(e.keyCode) || 
+          // Allow: Ctrl+A, Ctrl+C, Ctrl+V, Ctrl+X
+          (e.keyCode === 65 && e.ctrlKey === true) || 
+          (e.keyCode === 67 && e.ctrlKey === true) || 
+          (e.keyCode === 86 && e.ctrlKey === true) || 
+          (e.keyCode === 88 && e.ctrlKey === true) ||
+          // Allow: numbers on keypad
+          (e.keyCode >= 96 && e.keyCode <= 105)) {
+        return;
+      }
+      // Prevent if not a number
+      if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+        e.preventDefault();
+      }
+    });
+    
+    // Check when Enter key is pressed
+    document.getElementById('numberInput').addEventListener('keyup', function(e) {
+      if (e.keyCode === 13) {
+        checkPrime();
+      }
+    });
+    
+    // Back button functionality
+    function goBack() {
+      window.history.back();
+    }
+    
+    // Mobile menu functionality
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    const overlay = document.getElementById('overlay');
+    
+    hamburger.addEventListener('click', function() {
+      mobileMenu.classList.add('active');
+      overlay.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    });
+    
+    closeMenu.addEventListener('click', closeMobileMenu);
+    overlay.addEventListener('click', closeMobileMenu);
+    
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('active');
+      overlay.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+  </script>
+</body>
+</html>

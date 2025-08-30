@@ -1,0 +1,657 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Logarithmic Calculator - Calculator Hub</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background: #f4f6f9;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* Header Styles */
+    .main-header {
+      background: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
+      color: #fff;
+      padding: 15px 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .logo i {
+      font-size: 2rem;
+    }
+    
+    .logo h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+    
+    .back-btn {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+    }
+    
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+    
+    /* Calculator Container */
+    .calculator-container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .calculator-title {
+      color: #2c3e50;
+      margin-bottom: 20px;
+      font-size: 28px;
+      text-align: center;
+    }
+    
+    /* Logarithmic Calculator */
+    .calculator {
+      background: #fff;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
+    
+    .input-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    
+    .input-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    
+    .input-field {
+      width: 100%;
+      height: 50px;
+      background: #f9f9f9;
+      border: 2px solid #ddd;
+      border-radius: 10px;
+      padding: 10px 15px;
+      font-size: 18px;
+      text-align: center;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+      color: #2c3e50;
+      transition: border-color 0.3s;
+    }
+    
+    .input-field:focus {
+      outline: none;
+      border-color: #3498db;
+    }
+    
+    .calculate-btn {
+      background: #2ecc71;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s;
+      width: 100%;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+    
+    .calculate-btn:hover {
+      background: #27ae60;
+      transform: translateY(-2px);
+    }
+    
+    .mode-toggle {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+      gap: 10px;
+    }
+    
+    .mode-btn {
+      padding: 10px 15px;
+      border-radius: 20px;
+      border: none;
+      background: #eef2f7;
+      color: #2c3e50;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: 500;
+    }
+    
+    .mode-btn.active {
+      background: #3498db;
+      color: white;
+    }
+    
+    .result-container {
+      margin-top: 25px;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      text-align: center;
+    }
+    
+    .result-title {
+      font-size: 20px;
+      color: #2c3e50;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+    
+    .result {
+      font-size: 24px;
+      font-weight: 700;
+      color: #2ecc71;
+      word-break: break-all;
+    }
+    
+    .formula {
+      margin-top: 15px;
+      font-size: 16px;
+      color: #7f8c8d;
+      font-style: italic;
+    }
+    
+    /* Explanation Section */
+    .explanation {
+      margin-top: 30px;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 10px;
+      text-align: left;
+    }
+    
+    .explanation h3 {
+      color: #2c3e50;
+      margin-bottom: 15px;
+      font-size: 20px;
+    }
+    
+    .explanation p {
+      margin-bottom: 15px;
+      color: #555;
+    }
+    
+    .explanation ul {
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+    
+    .explanation li {
+      margin-bottom: 8px;
+      color: #555;
+    }
+    
+    /* Blog Section */
+    .blog-section {
+      margin-top: 40px;
+      padding: 25px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 800px;
+    }
+    
+    .blog-section h2 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+    
+    .blog-section h3 {
+      font-size: 20px;
+      margin-top: 25px;
+      color: #34495e;
+    }
+    
+    .blog-section p, .blog-section ul {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #555;
+    }
+    
+    .blog-section ul {
+      margin-left: 20px;
+      line-height: 1.8;
+    }
+    
+    /* Mobile Menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 300px;
+      height: 100vh;
+      background: #2c3e50;
+      z-index: 1001;
+      padding: 80px 30px 30px;
+      transition: right 0.3s ease;
+      box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+      overflow-y: auto;
+    }
+    
+    .mobile-menu.active {
+      right: 0;
+    }
+    
+    .mobile-menu ul {
+      list-style: none;
+    }
+    
+    .mobile-menu li {
+      margin-bottom: 15px;
+    }
+    
+    .mobile-menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2rem;
+      display: block;
+      padding: 10px;
+      border-radius: 5px;
+      transition: all 0.3s;
+    }
+    
+    .mobile-menu a:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .close-menu {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+      display: none;
+    }
+    
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-container {
+        padding: 0 15px;
+      }
+      
+      .logo h1 {
+        font-size: 1.5rem;
+      }
+      
+      .back-btn {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+      
+      .calculator {
+        padding: 15px;
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="logo">
+        <i class="fas fa-calculator"></i>
+        <h1>Calculator Hub</h1>
+      </div>
+      
+      <button class="back-btn" onclick="goBack()">
+        <i class="fas fa-arrow-left"></i> Back
+      </button>
+      
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="close-menu" id="closeMenu">&times;</button>
+    <ul>
+      <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="about-us.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+      <li><a href="contact-us.html"><i class="fas fa-envelope"></i> Contact Us</a></li>
+      <li><a href="privacy-policy.html"><i class="fas fa-shield-alt"></i> Privacy Policy</a></li>
+      <li><a href="disclaimer.html"><i class="fas fa-exclamation-triangle"></i> Disclaimer</a></li>
+      <li><a href="terms-conditions.html"><i class="fas fa-file-contract"></i> Terms & Conditions</a></li>
+    </ul>
+  </div>
+  
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Calculator Section -->
+  <div class="calculator-container">
+    <h2 class="calculator-title">Logarithmic Calculator</h2>
+    
+    <div class="calculator">
+      <div class="mode-toggle">
+        <button class="mode-btn active" id="logMode" onclick="setMode('log')">Logarithm</button>
+        <button class="mode-btn" id="antilogMode" onclick="setMode('antilog')">Antilogarithm</button>
+        <button class="mode-btn" id="naturalMode" onclick="setMode('natural')">Natural Log</button>
+      </div>
+      
+      <div id="logInputs">
+        <div class="input-group">
+          <label for="logValue">Number (x):</label>
+          <input type="number" id="logValue" class="input-field" placeholder="Enter a positive number" min="0" step="any">
+        </div>
+        
+        <div class="input-group">
+          <label for="logBase">Base (b):</label>
+          <input type="number" id="logBase" class="input-field" placeholder="Base value" min="1" step="any" value="10">
+        </div>
+      </div>
+      
+      <div id="antilogInputs" style="display: none;">
+        <div class="input-group">
+          <label for="antilogValue">Logarithm Value:</label>
+          <input type="number" id="antilogValue" class="input-field" placeholder="Enter logarithm value" step="any">
+        </div>
+        
+        <div class="input-group">
+          <label for="antilogBase">Base (b):</label>
+          <input type="number" id="antilogBase" class="input-field" placeholder="Base value" min="1" step="any" value="10">
+        </div>
+      </div>
+      
+      <div id="naturalInputs" style="display: none;">
+        <div class="input-group">
+          <label for="naturalValue">Number (x):</label>
+          <input type="number" id="naturalValue" class="input-field" placeholder="Enter a positive number" min="0" step="any">
+        </div>
+      </div>
+      
+      <button class="calculate-btn" onclick="calculateLog()">
+        Calculate
+      </button>
+      
+      <div class="result-container">
+        <div class="result-title">Result:</div>
+        <div class="result" id="result">-</div>
+        <div class="formula" id="formula"></div>
+      </div>
+      
+      <div class="explanation">
+        <h3>What are Logarithms?</h3>
+        <p>Logarithms are the inverse operation of exponentiation. The logarithm of a number is the exponent to which another fixed value (the base) must be raised to produce that number.</p>
+        
+        <p><strong>Basic Formula:</strong> If bˣ = y, then logₐ(y) = x</p>
+        
+        <p><strong>Common Logarithms:</strong> Base 10 (log₁₀)</p>
+        <p><strong>Natural Logarithms:</strong> Base e (logₑ or ln), where e ≈ 2.71828</p>
+        
+        <h3>Logarithmic Properties:</h3>
+        <ul>
+          <li>logₐ(xy) = logₐ(x) + logₐ(y) (Product Rule)</li>
+          <li>logₐ(x/y) = logₐ(x) - logₐ(y) (Quotient Rule)</li>
+          <li>logₐ(xⁿ) = n·logₐ(x) (Power Rule)</li>
+          <li>logₐ(1) = 0</li>
+          <li>logₐ(a) = 1</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Blog Section -->
+    <div class="blog-section">
+      <h2>About Logarithms</h2>
+      <p>
+        Logarithms were invented in the 17th century by John Napier as a calculation tool. They simplify complex calculations, 
+        particularly multiplication and division, by converting them into addition and subtraction. Today, logarithms have 
+        applications in many scientific fields including mathematics, physics, chemistry, and computer science.
+      </p>
+      
+      <h3>✨ Applications of Logarithms:</h3>
+      <ul>
+        <li><strong>Scientific Notation:</strong> Expressing very large or very small numbers</li>
+        <li><strong>pH Scale:</strong> Measuring acidity and alkalinity in chemistry</li>
+        <li><strong>Decibel Scale:</strong> Measuring sound intensity</li>
+        <li><strong>Richter Scale:</strong> Measuring earthquake magnitude</li>
+        <li><strong>Computer Science:</strong> Analyzing algorithm complexity (Big O notation)</li>
+        <li><strong>Finance:</strong> Calculating compound interest and investment growth</li>
+        <li><strong>Biology:</strong> Modeling population growth and decay</li>
+      </ul>
+      
+      <h3>📈 Common Logarithmic Bases:</h3>
+      <ul>
+        <li><strong>Base 10 (Common Logarithm):</strong> Denoted as log(x) or log₁₀(x)</li>
+        <li><strong>Base e (Natural Logarithm):</strong> Denoted as ln(x), where e ≈ 2.71828</li>
+        <li><strong>Base 2 (Binary Logarithm):</strong> Used in computer science, denoted as lb(x) or log₂(x)</li>
+      </ul>
+      
+      <h3>🧮 Interesting Facts:</h3>
+      <p>
+        Before calculators, logarithms were calculated using logarithmic tables and slide rules. The invention of logarithms 
+        greatly accelerated the progress of science, astronomy, and navigation by simplifying complex calculations. The natural 
+        logarithm has the unique property that the derivative of ln(x) is 1/x, making it fundamental in calculus.
+      </p>
+      
+      <p>
+        Logarithmic scales are used when the data spans a large range of values. This allows us to visualize data that would 
+        otherwise be difficult to represent on a linear scale.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    let currentMode = 'log';
+    
+    // Set calculation mode
+    function setMode(mode) {
+      currentMode = mode;
+      
+      // Update button states
+      document.getElementById('logMode').classList.toggle('active', mode === 'log');
+      document.getElementById('antilogMode').classList.toggle('active', mode === 'antilog');
+      document.getElementById('naturalMode').classList.toggle('active', mode === 'natural');
+      
+      // Show/hide input fields
+      document.getElementById('logInputs').style.display = mode === 'log' ? 'block' : 'none';
+      document.getElementById('antilogInputs').style.display = mode === 'antilog' ? 'block' : 'none';
+      document.getElementById('naturalInputs').style.display = mode === 'natural' ? 'block' : 'none';
+      
+      // Clear results when changing mode
+      document.getElementById('result').textContent = '-';
+      document.getElementById('formula').textContent = '';
+    }
+    
+    // Calculate logarithm
+    function calculateLog() {
+      let result, formula;
+      
+      try {
+        switch(currentMode) {
+          case 'log':
+            const value = parseFloat(document.getElementById('logValue').value);
+            const base = parseFloat(document.getElementById('logBase').value);
+            
+            if (isNaN(value) || isNaN(base)) {
+              throw new Error('Please enter valid numbers');
+            }
+            
+            if (value <= 0) {
+              throw new Error('Number must be positive');
+            }
+            
+            if (base <= 0 || base === 1) {
+              throw new Error('Base must be positive and not equal to 1');
+            }
+            
+            result = Math.log(value) / Math.log(base);
+            formula = `log${formatBase(base)}(${value}) = ${formatNumber(result)}`;
+            break;
+            
+          case 'antilog':
+            const antilogValue = parseFloat(document.getElementById('antilogValue').value);
+            const antilogBase = parseFloat(document.getElementById('antilogBase').value);
+            
+            if (isNaN(antilogValue) || isNaN(antilogBase)) {
+              throw new Error('Please enter valid numbers');
+            }
+            
+            if (antilogBase <= 0 || antilogBase === 1) {
+              throw new Error('Base must be positive and not equal to 1');
+            }
+            
+            result = Math.pow(antilogBase, antilogValue);
+            formula = `${antilogBase}^${antilogValue} = ${formatNumber(result)}`;
+            break;
+            
+          case 'natural':
+            const naturalValue = parseFloat(document.getElementById('naturalValue').value);
+            
+            if (isNaN(naturalValue)) {
+              throw new Error('Please enter a valid number');
+            }
+            
+            if (naturalValue <= 0) {
+              throw new Error('Number must be positive');
+            }
+            
+            result = Math.log(naturalValue);
+            formula = `ln(${naturalValue}) = ${formatNumber(result)}`;
+            break;
+        }
+        
+        // Display result
+        document.getElementById('result').textContent = formatNumber(result);
+        document.getElementById('formula').textContent = formula;
+        document.getElementById('result').style.color = '#2ecc71';
+      } catch (error) {
+        document.getElementById('result').textContent = error.message;
+        document.getElementById('result').style.color = '#e74c3c';
+        document.getElementById('formula').textContent = '';
+      }
+    }
+    
+    // Format base for display
+    function formatBase(base) {
+      if (base === 10) return '₁₀';
+      if (base === Math.E) return 'ₑ';
+      return `₍${base}₎`;
+    }
+    
+    // Format number to avoid long decimals
+    function formatNumber(num) {
+      // Check if the number is very close to an integer
+      if (Math.abs(num - Math.round(num)) < 1e-10) {
+        return Math.round(num).toString();
+      }
+      
+      // Round to 6 decimal places for display
+      return Math.round(num * 1000000) / 1000000;
+    }
+    
+    // Back button functionality
+    function goBack() {
+      window.history.back();
+    }
+    
+    // Mobile menu functionality
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const closeMenu = document.getElementById('closeMenu');
+    const overlay = document.getElementById('overlay');
+    
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.add('active');
+      overlay.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    });
+    
+    closeMenu.addEventListener('click', closeMobileMenu);
+    overlay.addEventListener('click', closeMobileMenu);
+    
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('active');
+      overlay.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+  </script>
+</body>
+</html>
